@@ -6,6 +6,9 @@
 		<class>com.seis635.project.model.University</class>
 		<class>com.seis635.project.model.Department</class>
 		<class>com.seis635.project.model.Program</class>
+		<class>com.seis635.project.model.Student</class>
+		<class>com.seis635.project.model.Grade</class>
+		<class>com.seis635.project.model.Class</class>
 		<properties>
 			<property name="eclipselink.target-server" value="SunAS9"/>
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
