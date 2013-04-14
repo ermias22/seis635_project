@@ -3,7 +3,7 @@ package com.seis635.project.backing;
 import javax.faces.application.FacesMessage;  
 import javax.faces.context.FacesContext;  
   
-public class MenuBean {  
+public class MenuBean extends AbstractBean{  
       
     public void save() {  
         addMessage("Data saved");  
@@ -17,8 +17,5 @@ public class MenuBean {
         addMessage("Data deleted");  
     }  
       
-    public void addMessage(String summary) {  
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);  
-        FacesContext.getCurrentInstance().addMessage(null, message);  
-    }  
+  
 }  

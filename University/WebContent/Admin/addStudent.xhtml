@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../WEB-INF/template.xhtml">
+    	
+    	<f:metadata>
+                    <f:viewParam name="firstname" value="#{studentBean.stu.first_name}" required="#{!facesContext.postback}"/>
+                      <f:viewParam name="lastname" value="#{studentBean.stu.last_name}" required="#{!facesContext.postback}"/>
+                       <f:viewParam name="ssn1" value="#{studentBean.stu.ssn}" required="#{!facesContext.postback}"/>
+                        <f:viewParam name="sex1" value="#{studentBean.stu.sex}" required="#{!facesContext.postback}"/>
+                        <f:viewParam name="dateofbirth1" value="#{studentBean.stu.dateofbirth}" required="#{!facesContext.postback}"/>
+                    
+                    
+            </f:metadata>
+    	
+    	<h1>Create a Student</h1>
+    	<hr/>
+		
+	    <ui:define name="content"> 
+
+			<style type="text/css">
+		  		.ui-panelgrid tr, .ui-panelgrid td {
+				border: none;
+			} 
+			</style>
+			
+			<p:panelGrid columns="2" styleClass="ui-panelgrid">
+		    	
+		    		<p:outputLabel value="First Name:" />
+		       		<p:inputText label="First Name" id="fname" value="#{studentBean.stu.first_name}" required="true"/>
+		       		
+		 
+			       	<p:outputLabel value ="Last Name:" />
+			        <p:inputText label="Last Name" id="lname" value="#{studentBean.stu.last_name}" required="true"/>
+			       	
+		     	
+		     		<p:outputLabel value ="SSN:" />
+			        <p:inputText label="SSN" id="ssn" value="#{studentBean.stu.ssn}" required="true"/>
+			       	
+		     	
+			       	<p:outputLabel value="Sex:" />
+			       	<p:selectOneRadio label="Sex" id="sex" value="#{studentBean.stu.sex}" required="true">
+			       		<f:selectItem itemLabel="Male" itemValue="M" />
+			         	<f:selectItem itemLabel="Female" itemValue="F" />
+			       	</p:selectOneRadio>
+ 			       
+		     	
+				    <p:outputLabel value="Date of Birth:" />
+			        <p:inputText id="dateofbirth" value="#{studentBean.stu.dateofbirth}">
+			        	<p:watermark for="dateofbirth" value="MM-DD-YY" />  
+			        	<f:convertDateTime pattern="MM-dd-yy"/>
+			        </p:inputText>
+					
+					<p:commandButton  value="Create Student" actionListener="#{adminMenuBean.studentNavigate('#{studentBean.outcome}')}" action="#{studentBean.doCreateStudent}"   />
+					
+					<h:message for="dateofbirth" style="color:red" />
+					
+		     	  
+		  	</p:panelGrid>
+		
+		 
+		   	
+			<p:growl id="messages" autoUpdate="true"/>  
+	
+		</ui:define>
+</ui:composition>
+</html>

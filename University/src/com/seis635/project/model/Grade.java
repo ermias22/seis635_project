@@ -9,11 +9,16 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="Grade.getGradesForStudent",query="SELECT g FROM Grade g WHERE g.grade_id.student_id = :id")
+})
 public class Grade {
 	
 	@Embeddable
@@ -23,13 +28,14 @@ public class Grade {
 		 */
 		private static final long serialVersionUID = 1L;
 		
-		private Long studentId;
-		private Long sessionId;
+		
+		private Long student_id;
+		private Long session_id;
 		
 		public GradeKey() {}
 		public GradeKey(long studentId, long sessionId) {
-			this.studentId = studentId;
-			this.sessionId = sessionId;
+			this.student_id = studentId;
+			this.session_id = sessionId;
 		}
 		
 		@Override
@@ -39,7 +45,7 @@ public class Grade {
 		
 		@Override
 		public boolean equals(Object that) {
-			return (this == that) || ((that instanceof GradeKey) && this.studentId.equals(((GradeKey) that).studentId) && this.sessionId.equals(((GradeKey) that).sessionId));
+			return (this == that) || ((that instanceof GradeKey) && this.student_id.equals(((GradeKey) that).student_id) && this.session_id.equals(((GradeKey) that).session_id));
 		}
 		
 	}
@@ -52,12 +58,12 @@ public class Grade {
 	
 	@OneToOne
 	@JoinColumn(name="session_id")
-	@MapsId("sessionId")
+	@MapsId("session_id")
 	Session session;
 	
 	@OneToOne
 	@JoinColumn(name="student_id")
-	@MapsId("studentId")
+	@MapsId("student_id")
 	Student student;
 	
 	private long grade;

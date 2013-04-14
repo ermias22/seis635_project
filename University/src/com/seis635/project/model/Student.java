@@ -5,40 +5,60 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="Student.getStudentByName",query="SELECT s FROM Student s WHERE s.ssn = :ssn"),
+	@NamedQuery(name="Student.findAll",query="SELECT s FROM Student s")
+})
 public class Student {
-	public Student() {}
-	
+	 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long student_id;
 	
-	@NotNull
 	@Column(length = 11)
 	private String ssn;
 	
-	@NotNull
 	@Column(length=25)
 	private String first_name;
 	private String last_name;
-	
-	private String sex;
+	@Column(length=1)
+	private String sex; 
 	
 	@Temporal(TemporalType.DATE)
 	private Date dateofbirth;
 	
-	@Null
-	@Column(length=25)
+	@Column(length=25,nullable=true)
 	private String middle_name;
 
+	@ManyToOne
+	@JoinColumn(name="program_id")
+	private Program program;
+	
+	
+	public Student() {}
+	
+	public Student(String firstName, String lastName, String ssn, String sex, Date dob) {
+		this.first_name = firstName;
+		this.last_name = lastName;
+		this.ssn = ssn;
+		this.sex = sex;
+		this.dateofbirth = dob;
+	}
+	
+	
+	//GET-SET
 	public long getStudent_id() {
 		return student_id;
 	}
@@ -93,6 +113,22 @@ public class Student {
 
 	public void setMiddle_name(String middle_name) {
 		this.middle_name = middle_name;
+	}
+
+	public Program getProgram() {
+		return program;
+	}
+
+	public void setProgram(Program program) {
+		this.program = program;
+	}
+
+	public Date getDateofbirth() {
+		return dateofbirth;
+	}
+
+	public void setDateofbirth(Date dateofbirth) {
+		this.dateofbirth = dateofbirth;
 	}
 
 	

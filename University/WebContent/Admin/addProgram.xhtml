@@ -1,20 +1,45 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="">
-	<ui:define name="header">
-	    Add your header here or delete to use the default
-	</ui:define>
-	<ui:define name="content">
-	    Add your content here or delete to use the default
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
+<ui:composition template="../WEB-INF/template.xhtml">
+
+    <h1>Create a program</h1>
+    <hr/>
+			
+    <ui:define name="content">    
+        
+    <h:panelGrid columns="2" >
+    	<h:outputLabel value="Program Name: "/>
+    	<h:inputText value="#{progBean.prog.name}"/>
+    	
+    	<h:outputLabel value="Program Desc: "/>
+    	<h:inputText value="#{progBean.prog.desc}"/>
+    	
+    	<h:outputLabel value="Program Credits: "/>
+    	<h:inputText value="#{progBean.prog.required_credits}"/>
+    	
+    	<h:outputLabel value="Select Department: "/>
+    	<h:outputLabel value=" "/>
+        
+        <h:selectOneListbox value="#{progBean.deptName}" var="deptName" >
+     	   <f:selectItems value="#{progBean.departments}" var="department" itemLabel="#{department.name}" itemValue="#{department.name}" />
+     	</h:selectOneListbox>
+    	<br></br>
+    	<h:commandButton value="Create a Program" actionListener="#{adminMenuBean.setPage('/Admin/addProgram.xhtml')}" action="#{progBean.doCreateProgram}" update="messages"/>           
+  	</h:panelGrid>
+     		            
+    <p:growl id="messages" autoUpdate="true"/>        
+ 
+        
+    
+
+	
+	    
 	</ui:define>
 </ui:composition>
 </html>

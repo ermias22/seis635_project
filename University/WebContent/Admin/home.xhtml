@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Title</title>
+	<h:outputStylesheet library="css" name="main.css"  />
+	  <style type="text/css">
+		  .ui-panelgrid tr, .ui-panelgrid td {
+			border: none;
+			} 
+	</style>
+</h:head>
+	
+
+<h:body>
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="100" id="top">
+			<h:form>
+				<ui:include src="/Admin/header.xhtml"/>
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="50">
+			<h:form>
+				<ui:include src="/Admin/footer.xhtml"/>
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="200">
+			<h:form> 
+				<ui:include src="/Admin/menu.xhtml"/>
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="center" size="400">
+			<h:form style="width:100% height:100%" id="mainContentForm">
+				<p:panel style="width:100% height:100%" id="mainContentPanel">
+					<ui:include src="#{adminMenuBean.page}"/>
+				</p:panel>
+			</h:form>
+		</p:layoutUnit>
+		
+	</p:layout>
+</h:body>
+</html>

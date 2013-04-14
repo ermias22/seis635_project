@@ -7,36 +7,33 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="../WEB-INF/template.xhtml">
-	<ui:define name="content">
-		    <h1>Create a department</h1>
+
+    <h1>Create a department</h1>
     <hr/>
-	<h:form>
+			
+    <ui:define name="content">    
         
+    <h:panelGrid columns="2" >
+    	<h:outputLabel value="Dept Name: "/>
+    	<h:inputText value="#{deptBean.dept.name}"/>
+    	
+    	<h:outputLabel value="Select University: "/>
+    	<h:outputLabel value=" "/>
         
-      <h:panelGrid columns="2" >
-            <h:outputLabel value="Name: "/>
-            <h:inputText value="#{universityController.dept.name}"/>
-        
-          <h:selectOneListbox value="#{universityController.univName}" var="univName" >
-        		<f:selectItems value="#{universityController.universities}" var="university" itemLabel="#{university.name}" itemValue="#{university.name}" />
-     		</h:selectOneListbox>
-    		<br></br>
-    	<h:commandButton value="Create a Department" action="#{universityController.doCreateDepartment}"/>           
+        <h:selectOneListbox value="#{deptBean.univName}" var="univName" >
+     	   <f:selectItems value="#{deptBean.universities}" var="university" itemLabel="#{university.name}" itemValue="#{university.name}" />
+     	</h:selectOneListbox>
+    	<br></br>
+    	<h:commandButton value="Create a Department" actionListener="#{adminMenuBean.setPage('/Admin/addDept.xhtml')}" action="#{deptBean.doCreateDepartment}" update="messages"/>           
   	</h:panelGrid>
      		            
-            
+    <p:growl id="messages" autoUpdate="true"/>        
  
-    
-    </h:form>
         
-    <h:message></h:message>
+    
 
-    
-    <hr/>
-    
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
+	
+	    
 	</ui:define>
 </ui:composition>
 </html>

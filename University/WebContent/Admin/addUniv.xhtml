@@ -4,20 +4,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="../WEB-INF/template.xhtml">
 	<ui:define name="content">
 		    <h1>Create a new university</h1>
-    <hr/>
-    <h:form>
+      <hr/>
+    
         <h:panelGrid columns="2" >
             <h:outputLabel value="Name: "/>
-            <h:inputText value="#{universityController.univ.name}"/>
+            <h:inputText value="#{universityBean.univ.name}"/>
         </h:panelGrid>
-        <h:commandButton value="Create a University" action="#{universityController.doCreateUniversity}"/>
+        <h:commandButton value="Create a University" action="#{universityBean.doCreateUniversity}" actionListener="#{adminMenuBean.setPage('/Admin/addUniv.xhtml')}" update="messages" />
 
-    </h:form>
+		  <p:growl id="messages" autoUpdate="true"/>
+    
     <hr/>
     
 	</ui:define>

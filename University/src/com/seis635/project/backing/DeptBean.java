@@ -4,64 +4,46 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.seis635.project.dao.UniversityEJB;
 import com.seis635.project.model.Department;
-import com.seis635.project.model.Program;
 import com.seis635.project.model.University;
 
 @ManagedBean
 @RequestScoped
-public class UniversityController {
-	 
+public class DeptBean extends AbstractBean {
+	
 	@EJB
-	UniversityEJB uEJB;
-
-	protected University univ = new University();
-	protected Department dept = new Department();
+	private UniversityEJB uEJB;
 	
-	protected String univName;
+	private Department dept = new Department();
 	
+	private List<University> universities;
 	
-	protected List<University> universities;
-	protected Program prog = new Program();
+	private String univName;
 	
 	@PostConstruct
 	public void init() {
 		universities = uEJB.listAllUniversity();
 	}
-	//Call EJB Operations
-
-	public String doCreateUniversity() {
-		uEJB.createUniversity(univ);
-		return "Success";
-	}
 	
 	public String doCreateDepartment() {
-		return uEJB.createDepartment(univName,dept);
+		String result = uEJB.createDepartment(univName,dept);
 		
+		if(result.equalsIgnoreCase("success")){
+			addMessage("Successfully created Department:" + dept.getName());
+			return "success";
+		} else {
+			addMessage(result);
+			return "error";
+		}
 	}
 	
-	public List<University> doListAllUniversity() {
-		return uEJB.listAllUniversity();
-	}
-	
-	public String doCreateProgram() {
-		return uEJB.createProgram(prog,dept);
-	}
-
-	
-	//Getters and setters
-	
-	public Program getProg() {
-		return prog;
-	}
-
-	public void setProg(Program prog) {
-		this.prog = prog;
-	}
+	//TODO - ADD DELETE
 	
 	public Department getDept() {
 		return dept;
@@ -69,14 +51,6 @@ public class UniversityController {
 
 	public void setDept(Department dept) {
 		this.dept = dept;
-	}
-
-	public University getUniv() {
-		return univ;
-	}
-
-	public void setUniv(University univ) {
-		this.univ = univ;
 	}
 
 	public List<University> getUniversities() {
@@ -93,6 +67,7 @@ public class UniversityController {
 
 	public void setUnivName(String univName) {
 		this.univName = univName;
-	}	
+	}
+
 	
 }

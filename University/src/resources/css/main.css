@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+
+.custom .ui-panelgrid tr, .custom .ui-panelgrid td {
+border: none;
+}  
