@@ -1,0 +1,46 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../WEB-INF/template.xhtml">
+
+    <h1>Create a Class</h1>
+    <hr/>
+			
+    <ui:define name="content">    
+        
+    <p:panelGrid id="panel" columns="2">
+    	<h:outputLabel value="Course Name: "/>
+    	<h:inputText id="name" value="#{courseBean.course.name}" required="true">
+    		<f:validateLength minimum="2"/>
+    	</h:inputText>
+    	
+    	
+    	<h:outputLabel value="Course Desc: "/>
+    	<h:inputText value="#{courseBean.course.desc}"/>
+    	
+    	<h:outputLabel value="Course Credits: "/>
+    	<h:inputText value="#{courseBean.course.credit}"/>
+    	
+    	<h:outputLabel value="Select Program: "/>
+    	<h:outputLabel value=" "/>
+        
+        <h:selectOneListbox value="#{courseBean.programName}" var="progName">
+     	   <f:selectItems value="#{courseBean.programs}" var="program" itemLabel="#{program.name}" itemValue="#{program.name}"/>
+     	</h:selectOneListbox>
+    	<br/>
+       
+        <h:commandButton value="Create a Course" ajax="false" actionListener="#{adminMenuBean.setPage('/Admin/addCourse.xhtml')}" action="#{courseBean.doCreateCourse}">
+    		
+    	</h:commandButton>    
+  	</p:panelGrid>
+     		            
+          
+ 
+		<p:messages name="messages"/>
+    
+
+	
+	    
+	</ui:define>
+</ui:composition>
+</html>

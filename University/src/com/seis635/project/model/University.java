@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 /**
  * Entity implementation class for Entity: University
@@ -22,13 +23,14 @@ import javax.persistence.OneToMany;
 	@NamedQuery(name="University.getUniversityByName",query="SELECT u FROM University u WHERE u.name = :univname"),
 	@NamedQuery(name="University.findAll",query="SELECT u FROM University u")
 })
+@SequenceGenerator(name="seq", initialValue=1, allocationSize=100)
 public class University implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int university_id;
 	@Column(length=225)
 	private String name;

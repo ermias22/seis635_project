@@ -16,7 +16,9 @@
             <h:outputLabel value="Name: "/>
             <h:inputText value="#{universityBean.univ.name}"/>
         </h:panelGrid>
-        <h:commandButton value="Create a University" action="#{universityBean.doCreateUniversity}" actionListener="#{adminMenuBean.setPage('/Admin/addUniv.xhtml')}" update="messages" />
+        <p:commandButton value="Create a University" action="#{universityBean.doCreateUniversity}" actionListener="#{adminMenuBean.setPage('/Admin/addUniv.xhtml')}" update="messages"> 
+        	  	
+        </p:commandButton>
 
 		  <p:growl id="messages" autoUpdate="true"/>
     

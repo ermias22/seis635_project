@@ -1,10 +1,10 @@
 package com.seis635.project.backing;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-@RequestScoped
+@ViewScoped
 public abstract class AbstractBean {
 	
     public void addMessage(String summary) {  

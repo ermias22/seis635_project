@@ -3,6 +3,7 @@ package com.seis635.project.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.UniqueConstraint;
 
@@ -10,7 +11,8 @@ import javax.persistence.UniqueConstraint;
 public class Text {
 	
 	@Id
-	@GeneratedValue
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long text_id;
 	
 	@Column(length=25)

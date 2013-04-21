@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:form id="form">
+		<p:fieldset legend="Course Catalog">  
+		<p:dataTable id="courseCatalog" value="#{tableBean.courses}" var="course" filteredValue="#{tableBean.filteredCourses}"
+			selectionMode="single" selection="#{tableBean.selectedCourse}" dblClickSelect="TRUE" rowKey="#{course.course_id}">
+		 
+		 	<p:ajax event="rowSelect" dblClickSelect="true" listener="#{tableBean.addCourseToRegister}" update=":mainContentForm:form:courseCatalog :mainContentForm:form:reg" />
+			
+			<p:column headerText="Program" filterBy="#{course.program.name}">
+				<h:outputText value="#{course.program.name}"/>
+			</p:column>
+			
+			<p:column headerText="Name" filterBy="#{course.name}" filterMatchMode="contains">
+				<h:outputText value="#{course.name}"/>
+			</p:column>
+			<p:column headerText="Description" filterBy="#{course.description}">
+				<h:outputText value="#{course.description}"/>
+			</p:column>
+			<p:column headerText="Credit" filterBy="#{course.credit}">
+				<h:outputText value="#{course.credit}"/>
+			</p:column>
+			<p:column header="Details">
+				<p:commandButton action="tableBean.getCourseDetails" update="display" onComplete="detailDialog.show()"/>
+			</p:column>
+     	</p:dataTable>
+		</p:fieldset>
+		<br></br>
+		<p:fieldset id="selectedCourses" legend="Selected Courses">
+			<p:dataTable id="reg" var="regCourse" value="#{tableBean.regCourses}" >
+					<p:column headerText="Program">
+						<h:outputText value="#{regCourse.program.name}"/>
+					</p:column>
+				
+					<p:column headerText="Name" >
+						<h:outputText value="#{regCourse.name}"/>
+					</p:column>
+					<p:column headerText="Description">
+						<h:outputText value="#{regCourse.description}"/> 
+					</p:column>
+					<p:column headerText="Credit">
+						<h:outputText value="#{regCourse.credit}"/>
+					</p:column>
+			</p:dataTable>
+		</p:fieldset>
+
+
+		<p:growl id="messages" autoUpdate="true"/>  
+		
+		
+		
+	</h:form>
+</ui:composition>
+</html>
+
+ 

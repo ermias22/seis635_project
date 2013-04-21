@@ -29,7 +29,8 @@ public class Department implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long department_id;
 	@Column(length=225)
 	private String name;
@@ -38,7 +39,7 @@ public class Department implements Serializable {
 	public University university;
 	
 	@OneToMany
-	@JoinColumn(name="program_id")
+	@JoinColumn(name="department_id")
 	List<Program> programs;
 	
 	public University getUniversity() {

@@ -30,12 +30,12 @@ public class Grade {
 		
 		
 		private Long student_id;
-		private Long session_id;
+		private Long sezzion_id;
 		
 		public GradeKey() {}
 		public GradeKey(long studentId, long sessionId) {
 			this.student_id = studentId;
-			this.session_id = sessionId;
+			this.sezzion_id = sessionId;
 		}
 		
 		@Override
@@ -45,7 +45,7 @@ public class Grade {
 		
 		@Override
 		public boolean equals(Object that) {
-			return (this == that) || ((that instanceof GradeKey) && this.student_id.equals(((GradeKey) that).student_id) && this.session_id.equals(((GradeKey) that).session_id));
+			return (this == that) || ((that instanceof GradeKey) && this.student_id.equals(((GradeKey) that).student_id) && this.sezzion_id.equals(((GradeKey) that).sezzion_id));
 		}
 		
 	}
@@ -57,9 +57,9 @@ public class Grade {
 	
 	
 	@OneToOne
-	@JoinColumn(name="session_id")
-	@MapsId("session_id")
-	Session session;
+	@JoinColumn(name="sezzion_id")
+	@MapsId("sezzion_id")
+	Sezzion sezzion;
 	
 	@OneToOne
 	@JoinColumn(name="student_id")
@@ -81,12 +81,12 @@ public class Grade {
 		this.grade_id = grade_id;
 	}
 
-	public Session getSession() {
-		return session;
+	public Sezzion getSezzion() {
+		return sezzion;
 	}
 
-	public void setSession(Session session) {
-		this.session = session;
+	public void setSezzion(Sezzion sezzion) {
+		this.sezzion = sezzion;
 	}
 
 	public Student getStudent() {

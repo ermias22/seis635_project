@@ -1,6 +1,6 @@
 package com.seis635.project.dao;
 
-import java.sql.Date;
+
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -10,8 +10,10 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.seis635.project.model.Course;
 import com.seis635.project.model.Department;
 import com.seis635.project.model.Grade;
+import com.seis635.project.model.Professor;
 import com.seis635.project.model.Program;
 import com.seis635.project.model.Student;
 import com.seis635.project.model.University;
@@ -40,11 +42,19 @@ public class UniversityEJB {
     	
     }
     
+    //TODO -Error handling
     public String createStudent(Student stu) {
     	
     	em.persist(stu);
     	return "success";
     	
+    }
+    
+    //TODO -Error handling
+    public String createProfessor(Professor prof) {
+    	
+    	em.persist(prof);
+    	return "success";
     }
     
     public String createDepartment(String u, Department d) {
@@ -63,6 +73,14 @@ public class UniversityEJB {
     
     public List<Department> listAllDepartment() {
     	return (List<Department>)em.createNamedQuery("Department.findAll").getResultList();
+    }
+    
+    public List<Program> listAllPrograms() {
+    	return (List<Program>)em.createNamedQuery("Program.findAll").getResultList();
+    }
+ 
+    public List<Course> listAllCourses() {
+    	return (List<Course>)em.createNamedQuery("Course.findAll").getResultList();
     }
     
     public String createProgram(String deptName, Program p) {
@@ -89,10 +107,28 @@ public class UniversityEJB {
     	return "success";
     }
     
-    public List<Department> getAllDepartments() {
-    	List<Department> depts = (List<Department>) em.createNamedQuery("Department.findAll").getResultList();
-    	return depts;
+    public String createCourse(String progName, Course c) {
+    	List tmp = em.createNamedQuery("Program.getProgramByName").setParameter("progname", progName).getResultList();
+    	Program program = null;
+    	
+    	if(tmp.size() == 0) {
+    		//TODO - add some error handling
+    		return "error";
+    	} else {
+    		program = (Program)tmp.get(0);
+    	}
+    	
+    	tmp = program.getCourses();
+    	tmp.add(c);
+    	
+    	em.persist(c);
+    	
+    	em.persist(program);
+        
+    	return "success";
     }
+    
+
     
     public Student getStudentByName(String ssn) {
     	List tmp = (List<Student>)em.createNamedQuery("Student.getStudentByName").setParameter("ssn", ssn).getResultList();
@@ -102,6 +138,28 @@ public class UniversityEJB {
 	    	return null;
 		} else {
 			return (Student)tmp.get(0); 
+		}
+    }
+    
+    public List<Course> getCoursesForProgramName(String prog) {
+    	List tmp = (List<Course>)em.createNamedQuery("Course.getCourseByProgramName").setParameter("progname", prog).getResultList();
+    	
+	    if(tmp.size() == 0) {
+			//TODO - add some error handling
+	    	return null;
+		} else {
+			return tmp; 
+		}
+    }
+    
+    public Course getCourseByName(String name) {
+    	List tmp = (List<Course>)em.createNamedQuery("Course.getCourseByName").setParameter("coursename", name).getResultList();
+    	
+    	if(tmp.size() == 0) {
+			//TODO - add some error handling
+	    	return null;
+		} else {
+			return (Course)tmp.get(0); 
 		}
     }
     

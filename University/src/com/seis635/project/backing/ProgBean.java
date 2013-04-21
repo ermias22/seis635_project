@@ -5,16 +5,15 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-
+import javax.faces.bean.ViewScoped;
 
 import com.seis635.project.dao.UniversityEJB;
 import com.seis635.project.model.Department;
 import com.seis635.project.model.Program;
 
 @ManagedBean
-@RequestScoped
-public class ProgBean extends AbstractBean {
+@ViewScoped
+public class ProgBean extends AbstractBean { 
 	@EJB
 	UniversityEJB uEJB;
 	
@@ -24,7 +23,7 @@ public class ProgBean extends AbstractBean {
 	
 	@PostConstruct
 	public void init() {
-		departments = uEJB.listAllDepartment();
+		departments = uEJB.listAllDepartment(); 
 	}
 	
 	public List<Department> doListAllDepartments() {
@@ -35,10 +34,11 @@ public class ProgBean extends AbstractBean {
 		String result = uEJB.createProgram(deptName,prog);
 
 		if(result.equalsIgnoreCase("success")){
-			addMessage("Successfully created Program:" + prog.getName());
+			//addMessage("Successfully created Program:" + prog.getName());
 			return "success";
 		} else {
-			addMessage(result);
+			//addMessage(result);
+			
 			return "error";
 		}
 	}

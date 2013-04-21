@@ -5,25 +5,25 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import com.seis635.project.dao.UniversityEJB;
-import com.seis635.project.model.Student;
-;
+import com.seis635.project.model.Professor;
+
 
 @ManagedBean
 @RequestScoped
-public class StudentBean extends AbstractBean {
+public class ProfBean extends AbstractBean {
 	
 	@EJB
 	private UniversityEJB uEJB;
 	
-	private Student stu = new Student();
+	private Professor prof = new Professor();
 	private String outcome="error";
 	
-	public String doCreateStudent() {
-		String result = uEJB.createStudent(stu);
-		String tmpName = stu.getFirst_name();
-		stu = new Student();
+	public String doCreateProfessor() {
+		String result = uEJB.createProfessor(prof);
+		String tmpName = prof.getFirst_name();
+		prof = new Professor();
 		if(result.equalsIgnoreCase("success")){
-			addMessage("Successfully created Student:" + tmpName);
+			addMessage("Successfully created Professor:" + tmpName);
 			outcome="success";
 			return "success";
 		} else {
@@ -34,12 +34,12 @@ public class StudentBean extends AbstractBean {
 	}
 
 	//GET_SET
-	public Student getStu() {
-		return stu;
+	public Professor getProf() {
+		return prof;
 	}
 
-	public void setStu(Student stu) {
-		this.stu = stu;
+	public void setProf(Professor prof) {
+		this.prof = prof;
 	}
 
 	public String getOutcome() {

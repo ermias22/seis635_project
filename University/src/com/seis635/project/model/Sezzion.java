@@ -10,12 +10,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Session {
-	public Session() {}
+public class Sezzion {
+	public Sezzion() {}
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long session_id;
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long sezzion_id;
 	
 	@Column(length=225)
 	private String semesteryear;
@@ -31,11 +32,11 @@ public class Session {
 	private String dayofweek;
 
 	public long getSession_id() {
-		return session_id;
+		return sezzion_id;
 	}
 
 	public void setSession_id(long session_id) {
-		this.session_id = session_id;
+		this.sezzion_id = session_id;
 	}
 
 	public String getSemesteryear() {

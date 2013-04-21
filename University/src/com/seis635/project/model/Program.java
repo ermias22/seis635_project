@@ -9,18 +9,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="Program.getProgramByName",query="SELECT p FROM Program p WHERE p.name = :progname"),
+	@NamedQuery(name="Program.findAll",query="SELECT p FROM Program p")
+}) 
 public class Program {
  
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long program_id;
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long program_id; 
 	
-	@NotNull
-	@Column(length=25) 
+	
+	@Column(length=25, nullable=false) 
 	private String name;
 	
 	@Column(length=225, nullable=true)
@@ -28,9 +36,10 @@ public class Program {
 	@Column(nullable=true)
 	private int required_credits;
 	
+	
 	@OneToMany
-	@JoinColumn(name="class_id")
-	public List<Class> classes;
+	@JoinColumn(name="program_id",nullable=true)
+	public List<Course> courses;
 	
 	@ManyToOne
 	@JoinColumn(name="department_id")
@@ -76,6 +85,22 @@ public class Program {
 
 	public void setRequired_credits(int required_credits) {
 		this.required_credits = required_credits;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
 	}
 	
 	
