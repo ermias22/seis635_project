@@ -39,6 +39,9 @@ public class University implements Serializable {
 	private List<Department> departments;
 	
 	public University() {}
+	public University(String name) {
+		this.name = name;
+	}
 	
 	
 	public void addDepartment(Department dept) {

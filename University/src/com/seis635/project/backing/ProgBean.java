@@ -5,14 +5,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import com.seis635.project.dao.UniversityEJB;
 import com.seis635.project.model.Department;
 import com.seis635.project.model.Program;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class ProgBean extends AbstractBean { 
 	@EJB
 	UniversityEJB uEJB;

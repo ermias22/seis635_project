@@ -1,7 +1,10 @@
 package com.seis635.project.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
@@ -31,9 +35,13 @@ public class Course {
 	private String description;
 	private int credit;  
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="program_id")
-	private Program program;
+	private Program program; 
+	
+	@OneToMany
+	@JoinColumn(name="course_id")
+	private List<Sezzion> sessions;
 	
 	public boolean equals(Object other) {
 	    return (other instanceof Course) && (Long.valueOf(course_id) != null) 
@@ -47,9 +55,6 @@ public class Course {
 	         ? (getClass().hashCode() + Long.valueOf(course_id).hashCode())
 	         : super.hashCode();
 	}
-	
-	
-	
 	
 	public long getCourse_id() {
 		return course_id;
@@ -86,6 +91,16 @@ public class Course {
 	}
 	public void setProgram(Program program) {
 		this.program = program;
+	}
+
+
+	public List<Sezzion> getSessions() {
+		return sessions;
+	}
+
+
+	public void setSessions(List<Sezzion> sessions) {
+		this.sessions = sessions;
 	}
 	
 	

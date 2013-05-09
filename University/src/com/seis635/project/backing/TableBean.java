@@ -8,17 +8,18 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
-import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.SelectEvent;
 
 import com.seis635.project.dao.UniversityEJB;
 import com.seis635.project.model.Course;
 import com.seis635.project.model.Program;
+import com.seis635.project.model.Sezzion;
 
 @ViewScoped
 @ManagedBean
@@ -27,9 +28,14 @@ public class TableBean extends AbstractBean implements Serializable {
 	@EJB
 	private UniversityEJB uEJB;
 	
+    // Following Bean
+    @ManagedProperty(value = "#{appSessionBean}")
+    private AppSessionBean appSessionBean;
+
+	
 	private List<Course> courses;
 	private List<Program> programs;
-	
+	private List<Sezzion> session;
 	private String programName;
 	private Program selectedProgram;
 	private Course selectedCourse;
@@ -55,32 +61,32 @@ public class TableBean extends AbstractBean implements Serializable {
 		
 	}
 	
-	public void onCourseDrop(DragDropEvent ddEvent) {
-		Course course = ((Course) ddEvent.getData());
-		
-		regCourses.add(course);
-		courses.remove(course);
-		
-	}
-	
+
 	public void addCourseToRegister(SelectEvent event) {
 
 		
 		Course tmp = uEJB.getCourseByName(((Course)event.getObject()).getName());
 		
+		Course course = (Course)event.getObject();
 		
 		//regCourses.add(((Course) event.getObject()));
 		
 		FacesMessage msg = new FacesMessage("Course selected: " + tmp.getName() + ":" + tmp.getCourse_id() + ":" + courses.contains(tmp));
 		
-		courses.remove(((Course) event.getObject()));
+		courses.remove(course);
 		if(!filteredCourses.isEmpty()) {
-			filteredCourses.remove(((Course) event.getObject()));
+			filteredCourses.remove(course);
 		}
 		
-		regCourses.add(((Course) event.getObject()));
+		regCourses.add(course);
+		appSessionBean.addCourseToRegister(course);
+		
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		
+	}
+	
+	public void getSessionForCourse(Course c) {
+		session = uEJB.getSessionsForCourse(c);
 	}
 	public UniversityEJB getuEJB() {
 		return uEJB;
@@ -144,6 +150,10 @@ public class TableBean extends AbstractBean implements Serializable {
 
 	public void setSelectedCourse(Course selectedCourse) {
 		this.selectedCourse = selectedCourse;
+	}
+
+	public void setAppSessionBean(AppSessionBean sessionBean) {
+		this.appSessionBean = sessionBean;
 	}
 	
 	

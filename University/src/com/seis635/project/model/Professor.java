@@ -1,6 +1,7 @@
 package com.seis635.project.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,12 +10,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="Professor.getProfessorBySSN",query="SELECT p FROM Professor p WHERE p.ssn = :ssn"),
+	@NamedQuery(name="Professor.findAll",query="SELECT p FROM Professor p")
+})
 public class Professor {
 
 	
@@ -23,15 +31,16 @@ public class Professor {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long professor_id;
 	
-	@NotNull
-	@Column(length = 11)
+	@Column(length = 11,nullable=false)
 	private String ssn;
 	
-	@NotNull
 	@Column(length=25)
 	private String first_name;
+	
+	@Column(length=25)
 	private String last_name;
 	
+	@Column(length=1)
 	private String sex;
 	
 	@NotNull
@@ -54,6 +63,13 @@ public class Professor {
 	@ManyToOne 
 	@JoinColumn(name="department_id")
 	private Department department;
+	
+	@OneToMany
+	@JoinColumn(name="teacher_id")
+	private List<Sezzion> sessions;
+	
+	
+	
 	public long getProfessor_id() {
 		return professor_id;
 	}
@@ -148,6 +164,14 @@ public class Professor {
 
 	public void setProfessor_id(long professor_id) {
 		this.professor_id = professor_id;
+	}
+
+	public List<Sezzion> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(List<Sezzion> sessions) {
+		this.sessions = sessions;
 	}
 
 	

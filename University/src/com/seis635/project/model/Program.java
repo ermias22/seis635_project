@@ -46,7 +46,7 @@ public class Program {
 	public Department department;
 
 	public Program() {}
-	
+		
 	public long getProgram_id() {
 		return program_id;
 	}

@@ -1,6 +1,7 @@
 package com.seis635.project.dao;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -15,6 +16,7 @@ import com.seis635.project.model.Department;
 import com.seis635.project.model.Grade;
 import com.seis635.project.model.Professor;
 import com.seis635.project.model.Program;
+import com.seis635.project.model.Sezzion;
 import com.seis635.project.model.Student;
 import com.seis635.project.model.University;
  
@@ -83,6 +85,15 @@ public class UniversityEJB {
     	return (List<Course>)em.createNamedQuery("Course.findAll").getResultList();
     }
     
+    public List<Professor> listAllProfessors() {
+    	return (List<Professor>)em.createNamedQuery("Professor.findAll").getResultList();
+    }
+    
+    public List<Sezzion> getSessionsForCourse(Course c) {
+    	return new ArrayList<Sezzion>();
+    }
+    
+    
     public String createProgram(String deptName, Program p) {
     	List tmp = em.createNamedQuery("Department.getDepartmentByName").setParameter("deptname", deptName).getResultList();
     	Department dept = null;
@@ -124,6 +135,37 @@ public class UniversityEJB {
     	em.persist(c);
     	
     	em.persist(program);
+        
+    	return "success";
+    }
+    
+    public String createSession(String courseName, Sezzion s, String profSSN) {
+    	List tmp = em.createNamedQuery("Course.getCourseByName").setParameter("coursename", courseName).getResultList();
+    	Professor p = null;
+    	if(profSSN != null) {
+    		p = (Professor)em.createNamedQuery("Professor.getProfessorBySSN").setParameter("ssn", profSSN).getResultList().get(0);
+    	}
+    	
+    	Course course = null;
+    	
+    	if(tmp.size() == 0) {
+    		//TODO - add some error handling
+    		return "error";
+    	} else {
+    		course = (Course)tmp.get(0);
+    	}
+    	
+    	if(p != null) {
+    		s.setProfessor(p);
+    	}
+    	
+    	
+    	tmp = course.getSessions();
+    	tmp.add(s);
+    	
+    	em.persist(s);
+    	
+    	em.persist(course);
         
     	return "success";
     }

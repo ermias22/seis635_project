@@ -11,6 +11,7 @@
 		<class>com.seis635.project.model.Course</class>
 		<class>com.seis635.project.model.Professor</class>
 		<class>com.seis635.project.model.Text</class>
+		<class>com.seis635.project.model.Sezzion</class> 
 		<properties>
 		    <property name="eclipselink.target-database" value="Derby"/>            
       		<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
