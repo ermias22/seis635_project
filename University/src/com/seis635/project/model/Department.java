@@ -29,7 +29,7 @@ public class Department implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long department_id;
 	@Column(length=225)
 	private String name;

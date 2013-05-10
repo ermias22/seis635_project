@@ -12,7 +12,7 @@ public class Class {
 	public Class() {}
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long class_id;
 	
 	@Column(length=225)

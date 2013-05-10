@@ -10,12 +10,12 @@
 		<class>com.seis635.project.model.Grade</class>
 		<class>com.seis635.project.model.Class</class>
 		<properties>
-			<property name="eclipselink.target-server" value="SunAS9"/>
+			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
             <property name="eclipselink.ddl-generation.output-mode" value="database"/>
-            <property name="eclipselink.jdbc.url" value="jdbc:oracle:thin:@jupiter.stthomas.edu:1521:stu"/>
-            <property name="eclipselink.jdbc.user" value="kesi5774"/>
-            <property name="eclipselink.jdbc.password" value="Friday15"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:derby://localhost:1527/University;create=true"/>
+            <property name="eclipselink.jdbc.user" value="app"/>
+            <property name="eclipselink.jdbc.password" value="app"/>
             <property name="eclipselink.logging.level" value="FINEST"/>
      	</properties>
 		</persistence-unit>
