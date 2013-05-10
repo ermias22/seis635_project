@@ -7,13 +7,42 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="../WEB-INF/template.xhtml">
-<h:outputStylesheet library="css" name="main.css"/>
-	<ui:define name="content">
-	    Put some homescreen text here.
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
-	</ui:define>
-</ui:composition>
+<h:head>
+	<title>Title</title>
+	<h:outputStylesheet library="css" name="main.css"  />
+	  <style type="text/css">
+		  .ui-panelgrid tr, .ui-panelgrid td {
+			border: none;
+			} 
+	</style>
+</h:head>
+	
+
+<h:body>
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="100" id="top">
+			<h:form>
+				<ui:include src="/Student/header.xhtml"/>
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="50">
+			<h:form> 
+				<ui:include src="/Student/footer.xhtml"/>
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="200">
+			<h:form> 
+				<ui:include src="/Student/menu.xhtml"/>
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="center" size="400">
+			<h:form style="width:100% height:100%" id="mainContentForm">
+				<p:panel style="width:100% height:100%" id="mainContentPanel">
+					<ui:include src="#{studentMenuBean.page}"/>
+				</p:panel>
+			</h:form>
+		</p:layoutUnit>
+		
+	</p:layout>
+</h:body>
 </html>

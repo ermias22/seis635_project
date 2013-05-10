@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../WEB-INF/template.xhtml">
+
+    <h1>Create a program</h1>
+    <hr/>
+			
+    <ui:define name="content">    
+        
+    <p:panelGrid id="panel" columns="2" >
+    	
+    	<h:outputLabel value="Semester and Year: "/>
+    	<h:inputText value="#{sessionBean.session.semesteryear}"/>
+    	
+    	<h:outputLabel value="Number Of Seats "/>
+    	<h:inputText value="#{sessionBean.session.numofseats}"/>
+    	
+    	<h:outputLabel value="Day of Week: "/>
+    	<h:inputText value="#{sessionBean.session.dayofweek}"/>
+        
+        <h:outputLabel value="Start Time: "/>
+    	<h:inputText value="#{sessionBean.session.start_time}"/>
+    	
+    	<h:outputLabel value="End Time: "/>
+    	<h:inputText value="#{sessionBean.session.end_time}"/>
+        
+        <h:selectOneListbox value="#{sessionBean.courseName}" var="courseName" >
+     	   <f:selectItems value="#{sessionBean.courses}" var="course" itemLabel="#{course.name}" itemValue="#{course.name}" />
+     	</h:selectOneListbox>
+     	
+     	<h:selectOneListbox value="#{sessionBean.profSSN}" var="profName" >
+     	   <f:selectItems value="#{sessionBean.professors}" var="prof" itemLabel="#{prof.first_name} #{prof.last_name}" itemValue="#{prof.ssn}" />
+     	</h:selectOneListbox>
+     	
+     	
+    	<br></br>
+       
+        <h:commandButton value="Create a Session" ajax="false" actionListener="#{adminMenuBean.setPage('/Admin/addCourse.xhtml')}" action="#{sessionBean.doCreateSession}"  >
+    		
+    	</h:commandButton>    
+  	</p:panelGrid>
+     		            
+          
+ 
+		<p:messages name="messages"></p:messages>
+    
+
+	
+	    
+	</ui:define>
+</ui:composition>
+</html>

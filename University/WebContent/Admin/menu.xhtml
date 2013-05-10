@@ -14,10 +14,14 @@
     <p:panelMenu style="width:100%">
         <p:submenu label="CRUD Operations">
         	<p:submenu label="Create">        	
+	            <p:menuitem value="Add Default App Data" action="#{applicationBean.createDefaultData}"></p:menuitem>
 	            <p:menuitem value="University" action="#{adminMenuBean.setPage('/Admin/addUniv.xhtml')}" update=":mainContentForm:mainContentPanel" />
 	            <p:menuitem value="Department" action="#{adminMenuBean.setPage('/Admin/addDept.xhtml')}" update=":mainContentForm:mainContentPanel" />
 	            <p:menuitem value="Program" action="#{adminMenuBean.setPage('/Admin/addProgram.xhtml')}" update=":mainContentForm:mainContentPanel" />
+	             <p:menuitem value="Course" action="#{adminMenuBean.setPage('/Admin/addCourse.xhtml')}"  update=":mainContentForm:mainContentPanel"  />
+	             <p:menuitem value="Session" action="#{adminMenuBean.setPage('/Admin/addSession.xhtml')}"  update=":mainContentForm:mainContentPanel"  />
 	            <p:menuitem value="Student" action="#{adminMenuBean.setPage('/Admin/addStudent.xhtml')}"  update=":mainContentForm:mainContentPanel"  />
+	            <p:menuitem value="Professor" action="#{adminMenuBean.setPage('/Admin/addProfessor.xhtml')}"  update=":mainContentForm:mainContentPanel"  />
             </p:submenu>
             <p:submenu label="Delete">        	
 	            <p:menuitem value="University" action="#{adminMenuBean.setPage('/Admin/delUniv.xhtml')}" update=":mainContentForm:mainContentPanel" />

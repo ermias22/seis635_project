@@ -8,9 +8,17 @@
 		<class>com.seis635.project.model.Program</class>
 		<class>com.seis635.project.model.Student</class>
 		<class>com.seis635.project.model.Grade</class>
-		<class>com.seis635.project.model.Class</class>
+		<class>com.seis635.project.model.Course</class>
+		<class>com.seis635.project.model.Professor</class>
+		<class>com.seis635.project.model.Text</class>
+		<class>com.seis635.project.model.Sezzion</class> 
 		<properties>
+<<<<<<< HEAD
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
+=======
+		    <property name="eclipselink.target-database" value="Derby"/>            
+      		<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+>>>>>>> 4ee3dad249ee91c9738afaed291438badaaaa424
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
             <property name="eclipselink.ddl-generation.output-mode" value="database"/>
             <property name="eclipselink.jdbc.url" value="jdbc:derby://localhost:1527/University;create=true"/>
@@ -20,3 +28,4 @@
      	</properties>
 		</persistence-unit>
 </persistence>
+

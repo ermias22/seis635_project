@@ -7,11 +7,11 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
-public class AdminMenuBean {
+public class StudentMenuBean {
 
-	public AdminMenuBean() {}
+	public StudentMenuBean() {}
 	
-	private String page = "/Admin/welcome.xhtml";
+	private String page = "/Student/welcome.xhtml";
 	
 	    public void save() {  
 	        addMessage("Data saved");  
@@ -31,14 +31,6 @@ public class AdminMenuBean {
 	        
 	    }
 
-	    public void studentnavigate(String outcome) {
-	    	if(outcome.equalsIgnoreCase("success")) {
-	    		setPage("/Admin/student.xhtml");
-	    	} else {
-	    		
-	    	}
-	    			
-	    }
 		public String getPage() {
 			return page;
 		}

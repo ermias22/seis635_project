@@ -25,20 +25,20 @@ import javax.persistence.OneToMany;
 })
 public class Department implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long department_id;
-	@Column(length=225)
+	@Column(length=25)
 	private String name;
 	@ManyToOne
 	@JoinColumn(name="university_id")
 	public University university;
 	
 	@OneToMany
-	@JoinColumn(name="program_id")
+	@JoinColumn(name="department_id")
 	List<Program> programs;
 	
 	public University getUniversity() {
@@ -50,6 +50,9 @@ public class Department implements Serializable {
 	}
 
 	public Department() {}
+	public Department(String name) {
+		this.name = name;
+	}
 
 	public long getDepartment_id() {
 		return department_id;

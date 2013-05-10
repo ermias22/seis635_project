@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"     
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <script type="text/javascript">
+           function handleDrop(event, ui)
+           {
+              var droppedCar = ui.draggable;
+              droppedCar.fadeOut('fast');
+           }
+         </script>
+    </h:head>
+    <h:body>
+        <h:form id="carForm">
+                <p:dataTable id="availableCars" var="car" value="#{Report.field1}">
+
+                    <p:column sortBy="#{car.values}" filterBy="#{car.values}" headerText="Properties"> 
+                              <h:outputText id="dragIcon" value="#{car.values}" /> 
+                              <p:draggable for="dragIcon" revert="true" /> 
+                           </p:column> 
+                 </p:dataTable>             
+            <p:fieldset id="selectedCars" style="margin-top:20px"> 
+                   <p:outputPanel id="dropArea"> 
+                       <h:outputText value="!!!Drop here!!!" rendered="#{empty Report.field2}" style="font-size:24px;" /> 
+                       <p:dataTable var="car" value="#{Report.field2}" rendered="#{not empty Report.field2}"> 
+                               <p:column headerText="Color"> 
+                                   <h:outputText value="#{car.values}" /> 
+                               </p:column>                                         
+                        </p:dataTable> 
+                   </p:outputPanel> 
+           </p:fieldset> 
+           <p:droppable for="selectedCars" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableCars" onDrop="handleDrop"> 
+                  <p:ajax listener="#{Report.onCarDrop}" update="dropArea availableCars" /> 
+            </p:droppable> 
+        </h:form>
+    </h:body>
+</html>

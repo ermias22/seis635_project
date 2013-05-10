@@ -24,7 +24,8 @@ import javax.persistence.TemporalType;
 public class Student {
 	 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long student_id;
 	
 	@Column(length = 11)

@@ -16,6 +16,5 @@ public class MenuBean extends AbstractBean{
     public void delete() {  
         addMessage("Data deleted");  
     }  
-      
-  
+
 }  

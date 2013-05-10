@@ -30,7 +30,7 @@
 			} 
 			</style>
 			
-			<p:panelGrid columns="2" styleClass="ui-panelgrid">
+			<p:panelGrid id="stuForm" columns="2" styleClass="ui-panelgrid">
 		    	
 		    		<p:outputLabel value="First Name:" />
 		       		<p:inputText label="First Name" id="fname" value="#{studentBean.stu.first_name}" required="true"/>
@@ -57,9 +57,12 @@
 			        	<f:convertDateTime pattern="MM-dd-yy"/>
 			        </p:inputText>
 					
-					<p:commandButton  value="Create Student" actionListener="#{adminMenuBean.studentNavigate('#{studentBean.outcome}')}" action="#{studentBean.doCreateStudent}"   />
+					<p:commandButton  value="Create Student" ajax="false" actionListener="#{adminMenuBean.setPage('/Admin/addStudent.xhtml')}" action="#{studentBean.doCreateStudent}">
+						
+					</p:commandButton>
+				
 					
-					<h:message for="dateofbirth" style="color:red" />
+					
 					
 		     	  
 		  	</p:panelGrid>
