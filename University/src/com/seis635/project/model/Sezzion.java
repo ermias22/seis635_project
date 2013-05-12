@@ -17,8 +17,10 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Sezzion.getSessionsForCourse", query="SELECT s from Sezzion s WHERE s.course.name = :coursename"),
-	@NamedQuery(name="Sezzion.getUniqueSemesters", query="SELECT distinct s.semesteryear from Sezzion s")
+	@NamedQuery(name="Sezzion.getSessionsForCourseBySemester", query="SELECT s from Sezzion s WHERE s.course.name = :coursename and s.semesteryear = :semesteryear"),
+	@NamedQuery(name="Sezzion.getUniqueSemesters", query="SELECT distinct s.semesteryear from Sezzion s"),
+	@NamedQuery(name="Sezzion.getSessionById", query="SELECT s from Sezzion s WHERE s.sezzion_id = :sezzionId"),
+	@NamedQuery(name="Sezzion.getSezzionsForSemester", query="SELECT s from Sezzion s where s.semesteryear = :semesteryear")
 })
  
 public class Sezzion {

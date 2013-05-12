@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+			
+			<p:growl id="messages" autoUpdate="true"/>  
+			<p:fieldset legend="Courses To Register">  
+			<p:dataTable id="registration" value="#{tableBean.registrations}" var="reg" selectionMode="single" selection="#{tableBean.selectedRegistration}" 
+			dblClickSelect="TRUE" rowKey="#{reg.clazz.course_id}">
+			
+					<p:ajax event="rowSelect" dblClickSelect="true" listener="#{tableBean.removeRegistration}" update=":mainContentForm:registration" />
+					<p:column headerText="Semester">
+						<h:outputText value="#{reg.sezzion.semesteryear}"/>
+					</p:column>
+			
+			
+					<p:column headerText="Class">
+						<h:outputText value="#{reg.clazz.name}"/>
+					</p:column>
+							
+					<p:column headerText="Day of Week">
+						<h:outputText value="#{reg.sezzion.dayofweek}"/> 
+					</p:column>
+					
+					<p:column headerText="Professor" >
+						<h:outputText value="#{reg.professor.first_name} #{reg.professor.last_name}"/>
+					</p:column>
+				</p:dataTable>
+		</p:fieldset>
+		
+		<p:commandButton value="Next>>" ajax="true" action="#{tableBean.doRegistration}"  update=":mainContentForm:mainContentPanel"></p:commandButton>
+		
+</ui:composition>
+</html>

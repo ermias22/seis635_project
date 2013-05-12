@@ -16,6 +16,7 @@ import com.seis635.project.model.Department;
 import com.seis635.project.model.Grade;
 import com.seis635.project.model.Professor;
 import com.seis635.project.model.Program;
+import com.seis635.project.model.Registration;
 import com.seis635.project.model.Sezzion;
 import com.seis635.project.model.Student;
 import com.seis635.project.model.University;
@@ -42,6 +43,12 @@ public class UniversityEJB {
     	em.persist(university);
     	return "success";
     	
+    }
+    
+    public Professor getProfessorForSession(Sezzion s) {
+    	
+    	
+    	return null;
     }
     
     //TODO -Error handling
@@ -101,8 +108,19 @@ public class UniversityEJB {
     	return (List<Professor>)em.createNamedQuery("Professor.findAll").getResultList();
     }
     
-    public List<Sezzion> getSessionsForCourse(Course c) {
-     	return (List<Sezzion>)em.createNamedQuery("Sezzion.getSessionsForCourse").setParameter("coursename", c.getName()).getResultList();
+    public List<Sezzion> getSessionsForCourseBySemester(Course c, String semesteryear) {
+     	return (List<Sezzion>)em.createNamedQuery("Sezzion.getSessionsForCourseBySemester").setParameter("coursename", c.getName()).setParameter("semesteryear", semesteryear).getResultList();
+    }
+    
+    public List<Registration> getRegistrationsForSemester(String semester) {
+    	System.out.println("WHAT THE HELL?" + semester);
+    	return (List<Registration>)em.createNamedQuery("Registration.getRegistrationsBySemester").setParameter("semesteryear", semester).getResultList();
+    }
+    
+    public String registerForClass(Registration r) {
+    	System.out.println(r.toString());
+    	em.persist(r);
+    	return "success";
     }
     
     

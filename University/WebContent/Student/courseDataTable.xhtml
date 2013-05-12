@@ -10,11 +10,6 @@
 <ui:composition>
 	<h:form id="form">
 	<p:growl id="messages" autoUpdate="true"/>  
-		
-		<h:panelGrid columns="1">
-			<h:outputText value="#{appSessionBean.student_ssn}"></h:outputText>
-			<h:outputText value="#{appSessionBean.semester}"></h:outputText>
-		</h:panelGrid>
 				
 		<p:fieldset legend="Course Catalog">  
 		<p:dataTable id="courseCatalog" value="#{tableBean.courses}" var="course" filteredValue="#{tableBean.filteredCourses}"
@@ -40,7 +35,7 @@
 		</p:fieldset>
 		<br></br>
 		<p:fieldset legend="Courses To Register">  
-			<p:dataTable id="reg" var="regCourse" value="#{tableBean.regCourses}" >
+			<p:dataTable id="reg" widgetVar="reg" var="regCourse" value="#{tableBean.regCourses}" editMode="row" rowKey="regCourse.course_id" >
 					<p:column headerText="Program">
 						<h:outputText value="#{regCourse.program.name}"/>
 					</p:column>
@@ -59,9 +54,8 @@
 							<f:setPropertyActionListener value="#{regCourse}" target="#{tableBean.sessionForCourse}"/>
 						</p:commandButton>
 					</p:column>
-					<p:column headerText="Done">
-						<p:selectBooleanButton widgetVar="boolbutton" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close">  
-            	        </p:selectBooleanButton>  
+					<p:column headerText="Selected">
+						<h:outputText id="sessionVal" value="#{regCourse.userDayOfWeek}"/>
   					</p:column>
 			</p:dataTable>
 		</p:fieldset>
@@ -72,13 +66,13 @@
 				<p:dataTable id="courseSessions" var="ses" value="#{tableBean.courseSessions}"
 					selectionMode="single" selection="#{tableBean.selectedSession}" dblClickSelect="TRUE" rowKey="#{ses.sezzion_id}">
 					
-					<p:ajax event="rowSelect" listener="#{tableBean.selectSession}" onsuccess="sessionDialog.hide()" update=":mainContentForm:form:reg:boolbutton" />
+					<p:ajax event="rowSelect" listener="#{tableBean.selectSession}" update=":mainContentForm:form:reg" onsuccess="sessionDialog.hide()" />
 					
 					<p:column headerText="Semester">
 						<h:outputText value="#{ses.semesteryear}"/>
 					</p:column>
 					<p:column headerText="Instructor">
-						<h:outputText value="Implement this"/>
+						<h:outputText value="#{ses.professors.get('0').first_name} #{ses.professors.get('0').last_name}"/>
 					</p:column>
 					<p:column headerText="Day Of Week">
 						<h:outputText value="#{ses.dayofweek}"/>
@@ -97,11 +91,9 @@
 			
 		</p:dialog>
 		
-	
-	
-	<p:commandButton value="Next>>" ajax="false" action="#{studentMenuBean.setPage('/Student/chooseSession.xhtml')}"></p:commandButton>
-	
-	</h:form>
+		</h:form>
+		
+		<p:commandButton value="Next>>" ajax="true" action="#{tableBean.setStep('3')}" update=":mainContentForm:mainContentPanel"></p:commandButton>
 </ui:composition>
 </html>
 
