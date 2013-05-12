@@ -9,6 +9,13 @@
 
 <ui:composition>
 	<h:form id="form">
+	<p:growl id="messages" autoUpdate="true"/>  
+		
+		<h:panelGrid columns="1">
+			<h:outputText value="#{appSessionBean.student_ssn}"></h:outputText>
+			<h:outputText value="#{appSessionBean.semester}"></h:outputText>
+		</h:panelGrid>
+				
 		<p:fieldset legend="Course Catalog">  
 		<p:dataTable id="courseCatalog" value="#{tableBean.courses}" var="course" filteredValue="#{tableBean.filteredCourses}"
 			selectionMode="single" selection="#{tableBean.selectedCourse}" dblClickSelect="TRUE" rowKey="#{course.course_id}">
@@ -32,7 +39,7 @@
      	</p:dataTable>
 		</p:fieldset>
 		<br></br>
-		<p:fieldset id="selectedCourses" legend="Selected Courses">
+		<p:fieldset legend="Courses To Register">  
 			<p:dataTable id="reg" var="regCourse" value="#{tableBean.regCourses}" >
 					<p:column headerText="Program">
 						<h:outputText value="#{regCourse.program.name}"/>
@@ -48,26 +55,53 @@
 						<h:outputText value="#{regCourse.credit}"/>
 					</p:column>
 					<p:column headerText="Choose Session">
-						<p:commandButton id="selectButton" update=":mainContentForm:form:display #{tableBean.getSessionForCourse('regCourse')}" oncomplete="sessionDialog.show()" icon="ui-icon-search" title="Choose Session">
-							
+						<p:commandButton id="selectButton" value="Choose Session" process="@this :mainContentForm:form:courseSessions" update=":mainContentForm:form:courseSessions" action="#{tableBean.chooseSession}" oncomplete="sessionDialog.show()" icon="ui-icon-search" title="Choose Session">
+							<f:setPropertyActionListener value="#{regCourse}" target="#{tableBean.sessionForCourse}"/>
 						</p:commandButton>
-					
 					</p:column>
+					<p:column headerText="Done">
+						<p:selectBooleanButton widgetVar="boolbutton" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close">  
+            	        </p:selectBooleanButton>  
+  					</p:column>
 			</p:dataTable>
 		</p:fieldset>
+		
+		
+		<p:dialog header="Session Details" widgetVar="sessionDialog" appendToBody="false" resizable="true" id="sessionDlg" showEffect="fade" hideEffect="explode" dynamic="true" closable="true">
 
-		
-		<p:growl id="messages" autoUpdate="true"/>  
-		
-		<p:dialog header="Session Details" widgetVar="sessionDialog" resizable="true" id="sessionDlg" showEffect="fade" hideEffect="explode" modal="true">
-			<h:panelGrid id="display" columns="1" cellpadding="4">
-				
-			</h:panelGrid>
+				<p:dataTable id="courseSessions" var="ses" value="#{tableBean.courseSessions}"
+					selectionMode="single" selection="#{tableBean.selectedSession}" dblClickSelect="TRUE" rowKey="#{ses.sezzion_id}">
+					
+					<p:ajax event="rowSelect" listener="#{tableBean.selectSession}" onsuccess="sessionDialog.hide()" update=":mainContentForm:form:reg:boolbutton" />
+					
+					<p:column headerText="Semester">
+						<h:outputText value="#{ses.semesteryear}"/>
+					</p:column>
+					<p:column headerText="Instructor">
+						<h:outputText value="Implement this"/>
+					</p:column>
+					<p:column headerText="Day Of Week">
+						<h:outputText value="#{ses.dayofweek}"/>
+					</p:column>
+					<p:column headerText="Start Time">
+						<h:outputText value="#{ses.start_time}"/>
+					</p:column>
+					<p:column headerText="End Time">
+						<h:outputText value="#{ses.end_time}"/>
+					</p:column>
+					<p:column headerText="Open Seats">
+						<h:outputText value="Add SQL Query"/>
+					</p:column>
+								
+				</p:dataTable>
+			
 		</p:dialog>
 		
-	</h:form>
+	
 	
 	<p:commandButton value="Next>>" ajax="false" action="#{studentMenuBean.setPage('/Student/chooseSession.xhtml')}"></p:commandButton>
+	
+	</h:form>
 </ui:composition>
 </html>
 

@@ -8,14 +8,14 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-			
+		
     <p:growl id="messages" autoUpdate="true"/>
 
     <p:panelMenu style="width:100%">
         
         	<p:submenu label="Registration">        	
 	            <p:menuitem value="View Courses" action="#{studentMenuBean.setPage('/Student/courseDataTable.xhtml')}" update=":mainContentForm:mainContentPanel" />
-	            <p:menuitem value="Add/Drop Classes" action="#{studentMenuBean.setPage('/Student/addDept.xhtml')}" update=":mainContentForm:mainContentPanel" />
+	            <p:menuitem value="Add/Drop Classes" action="#{studentMenuBean.setPage('/Student/registerPage1.xhtml')}" update=":mainContentForm:mainContentPanel" />
 	            <p:menuitem value="View/Print Schedule" action="#{studentMenuBean.setPage('/Student/addProgram.xhtml')}" update=":mainContentForm:mainContentPanel" />
 	        </p:submenu>
             <p:submenu label="Gradebook">        	
@@ -24,6 +24,7 @@
 	            <p:menuitem value="Request Transcript" action="#{studentMenuBean.setPage('/Student/delStudent.xhtml')}"  update=":mainContentForm:mainContentPanel"  />
             </p:submenu>
      	    </p:panelMenu>
+
 </ui:composition>
 </html>
                     

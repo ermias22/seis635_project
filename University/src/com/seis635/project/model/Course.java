@@ -18,8 +18,8 @@ import javax.persistence.OneToMany;
 @NamedQueries({
 	@NamedQuery(name="Course.getCourseByProgramName",query="SELECT c FROM Course c WHERE c.program.name = :progname"),
 	@NamedQuery(name="Course.findAll",query="SELECT c FROM Course c"),
-	@NamedQuery(name="Course.getCourseByName",query="SELECT c FROM Course c WHERE c.name = :coursename")
-	
+	@NamedQuery(name="Course.getCourseByName",query="SELECT c FROM Course c WHERE c.name = :coursename"),
+	@NamedQuery(name="Course.getCoursesAndPrograms", query="SELECT c from Course c JOIN c.program p")
 })
 public class Course {
 	
@@ -35,7 +35,7 @@ public class Course {
 	private String description;
 	private int credit;  
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="program_id")
 	private Program program; 
 	

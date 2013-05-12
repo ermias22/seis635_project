@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+
+    <h1>Create a department</h1>
+    <hr/>
+			    
+        
+    <h:panelGrid columns="2" >
+    	<h:outputLabel value="Dept Name: "/>
+    	<h:inputText value="#{deptBean.dept.name}"/>
+    	
+    	<h:outputLabel value="Select University: "/>
+    	<h:outputLabel value=" "/>
+        
+        <h:selectOneListbox value="#{deptBean.univName}" var="univName" >
+     	   <f:selectItems value="#{deptBean.universities}" var="university" itemLabel="#{university.name}" itemValue="#{university.name}" />
+     	</h:selectOneListbox>
+    	<br></br>
+    	<h:commandButton value="Create a Department" actionListener="#{adminMenuBean.setPage('/Admin/addDept.xhtml')}" action="#{deptBean.doCreateDepartment}" update="messages"/>           
+  	</h:panelGrid>
+     		            
+    <p:growl id="messages" autoUpdate="true"/>        
+
+</ui:composition>
+</html>

@@ -11,6 +11,9 @@
 			<default-locale>en</default-locale>
 		</locale-config>
 	</application>
-
+	<converter>
+    	<converter-id>studentConverter</converter-id>
+    <converter-class>com.seis635.project.converter.StudentConverter</converter-class>
+</converter>
 </faces-config>
 

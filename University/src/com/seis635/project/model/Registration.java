@@ -146,4 +146,12 @@ public class Registration {
 			this.enrollment_date = enrollment_date;
 		}
 
+		public Sezzion getSezzion() {
+			return sezzion;
+		}
+
+		public void setSezzion(Sezzion sezzion) {
+			this.sezzion = sezzion;
+		}
+
 }

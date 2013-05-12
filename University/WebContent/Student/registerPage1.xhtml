@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+<h:form id="form2">
+			<h:panelGrid columns="2">	
+			<p:selectOneMenu value="#{appSessionBean.student_ssn}" var="student_ssn">
+	     	   <f:selectItems value="#{appSessionBean.students}" var="stud" itemLabel="#{stud.first_name} #{stud.last_name}" itemValue="#{stud.ssn}" />
+	     	   <p:column>
+	     	   		#{stud.first_name} #{stud.last_name}
+	     	   </p:column>
+	     	</p:selectOneMenu>
+	     	
+	     	<p:selectOneMenu value="#{appSessionBean.semester}" var="semester" >
+	     	   <f:selectItems value="#{tableBean.semesters}" var="sem" itemLabel="#{sem}" itemValue="#{sem}" />
+	     	   	<p:column>
+	     	   	#{sem}
+	     	   </p:column>
+	     	</p:selectOneMenu>
+	     	
+	     	<p:commandButton  value="Next >>" ajax="false" action="#{studentMenuBean.setPage('/Student/courseDataTable.xhtml')}" >
+	     	</p:commandButton>
+	     </h:panelGrid>
+	     
+</h:form>
+</ui:composition>
+</html>

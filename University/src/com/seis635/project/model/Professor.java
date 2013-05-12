@@ -9,10 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -64,9 +65,9 @@ public class Professor {
 	@JoinColumn(name="department_id")
 	private Department department;
 	
-	@OneToMany
-	@JoinColumn(name="teacher_id")
+	@ManyToMany(mappedBy="professors")
 	private List<Sezzion> sessions;
+	
 	
 	
 	

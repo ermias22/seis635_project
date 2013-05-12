@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Entity implementation class for Entity: Department
@@ -31,8 +33,11 @@ public class Department implements Serializable {
 	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long department_id;
-	@Column(length=25)
+	@Column(unique=true,length=25)
 	private String name;
+	@Column(length=50)
+	private String description;
+	
 	@ManyToOne
 	@JoinColumn(name="university_id")
 	public University university;
@@ -79,6 +84,14 @@ public class Department implements Serializable {
 
 	public void setPrograms(List<Program> programs) {
 		this.programs = programs;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

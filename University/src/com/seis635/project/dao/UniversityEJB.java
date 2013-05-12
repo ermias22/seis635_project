@@ -85,12 +85,24 @@ public class UniversityEJB {
     	return (List<Course>)em.createNamedQuery("Course.findAll").getResultList();
     }
     
+    public List<Student> listAllStudents() {
+    	return (List<Student>)em.createNamedQuery("Student.findAll").getResultList();
+    }
+    
+    public List<String> listAllSessionSemesters() {
+    	return (List<String>)em.createNamedQuery("Sezzion.getUniqueSemesters").getResultList();
+    }
+    
+    public List<Course> listAllCoursesAndPrograms() {
+    	return (List<Course>)em.createNamedQuery("Course.getCoursesAndPrograms").getResultList();
+    }
+    
     public List<Professor> listAllProfessors() {
     	return (List<Professor>)em.createNamedQuery("Professor.findAll").getResultList();
     }
     
     public List<Sezzion> getSessionsForCourse(Course c) {
-    	return new ArrayList<Sezzion>();
+     	return (List<Sezzion>)em.createNamedQuery("Sezzion.getSessionsForCourse").setParameter("coursename", c.getName()).getResultList();
     }
     
     
@@ -156,13 +168,34 @@ public class UniversityEJB {
     	}
     	
     	if(p != null) {
-    		s.setProfessor(p);
+    		if(s.getProfessors() != null) {    		
+	    		
+    			if(p.getSessions() != null) {
+    				tmp = p.getSessions();
+    				tmp.add(s);
+    				p.setSessions(tmp);
+    			} else {
+    				tmp = new ArrayList();
+    				tmp.add(s);
+    				p.setSessions(tmp);
+    			}
+    			
+    			tmp = s.getProfessors();
+	    		tmp.add(p);
+	    		s.setProfessors(tmp);
+	    		
+    		} else {
+    			tmp = new ArrayList();
+    			tmp.add(p);
+    			s.setProfessors(tmp);
+    		}
     	}
     	
     	
     	tmp = course.getSessions();
     	tmp.add(s);
     	
+    	em.persist(p);
     	em.persist(s);
     	
     	em.persist(course);
