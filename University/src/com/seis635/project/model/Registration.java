@@ -3,7 +3,6 @@ package com.seis635.project.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -17,7 +16,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Grade.getGradesForStudent",query="SELECT g FROM Grade g WHERE g.grade_id.student_id = :id")
+	@NamedQuery(name="Grade.getGradesForStudent",query="SELECT g FROM Grade g WHERE g.grade_id.student_id = :id"),
+	@NamedQuery(name="Registration.getRegistrationsBySemester",query="SELECT r from Registration r where r.sezzion.semesteryear = :semesteryear")
 })
 public class Registration {
 	
@@ -146,4 +146,16 @@ public class Registration {
 			this.enrollment_date = enrollment_date;
 		}
 
+		public Sezzion getSezzion() {
+			return sezzion;
+		}
+
+		public void setSezzion(Sezzion sezzion) {
+			this.sezzion = sezzion;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(this.clazz.getCourse_id()) + "|" + this.clazz.getName() + "|" + this.clazz.getProgram().getName() + "|" + this.sezzion.getDayofweek() + "|" + this.professor.getLast_name();
+		}
 }

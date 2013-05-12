@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	
+	<p:fieldset legend="Courses To Register">  
+		<p:dataTable id="registration" value="#{tableBean.registeredFor}" var="reg" rowKey="#{reg.clazz.course_id}">
+						
+			<p:column headerText="Semester">
+				<h:outputText value="#{reg.sezzion.semesteryear}"/>
+			</p:column>
+		
+			<p:column headerText="Class">
+				<h:outputText value="#{reg.clazz.name}"/>
+			</p:column>
+					
+			<p:column headerText="Day of Week">
+				<h:outputText value="#{reg.sezzion.dayofweek}"/> 
+			</p:column>
+			<p:column headerText="Start Time">
+				<h:outputText value="#{reg.sezzion.start_time}"/> 
+			</p:column>
+			<p:column headerText="End Time">
+				<h:outputText value="#{reg.sezzion.end_time}"/> 
+			</p:column>
+			<p:column headerText="Professor" >
+				<h:outputText value="#{reg.professor.first_name} #{reg.professor.last_name}"/>
+			</p:column>
+		</p:dataTable>
+	</p:fieldset>
+	
+</ui:composition>
+</html>

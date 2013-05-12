@@ -29,6 +29,9 @@
     	
     	<h:outputLabel value="End Time: "/>
     	<h:inputText value="#{sessionBean.session.end_time}"/>
+    	
+    	<h:outputLabel value="Location: "/>
+    	<h:inputText value="#{sessionBean.session.location}"/>
         
         <h:selectOneListbox value="#{sessionBean.courseName}" var="courseName" >
      	   <f:selectItems value="#{sessionBean.courses}" var="course" itemLabel="#{course.name}" itemValue="#{course.name}" />

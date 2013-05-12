@@ -32,7 +32,7 @@ public class University implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int university_id;
-	@Column(length=225)
+	@Column(unique=true,length=225)
 	private String name;
 	@OneToMany
 	@JoinColumn(name="university_id")

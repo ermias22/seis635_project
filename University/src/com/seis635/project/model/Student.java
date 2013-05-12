@@ -28,7 +28,7 @@ public class Student {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long student_id;
 	
-	@Column(length = 11)
+	@Column(unique=true,length = 11)
 	private String ssn;
 	
 	@Column(length=25)
@@ -131,6 +131,16 @@ public class Student {
 	public void setDateofbirth(Date dateofbirth) {
 		this.dateofbirth = dateofbirth;
 	}
+	
+	   // This must return true for another Foo object with same key/id.
+    public boolean equals(Object other) {
+        return other instanceof Student && this.student_id == ((Student) other).student_id;
+    }
+
+    // This must return the same hashcode for every Foo object with the same key.
+    public int hashCode() {
+        return this.getClass().hashCode() + String.valueOf(this.student_id).hashCode() ;
+    }
 
 	
 	

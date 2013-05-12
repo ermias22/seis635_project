@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,13 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Course.getCourseByProgramName",query="SELECT c FROM Course c WHERE c.program.name = :progname"),
 	@NamedQuery(name="Course.findAll",query="SELECT c FROM Course c"),
-	@NamedQuery(name="Course.getCourseByName",query="SELECT c FROM Course c WHERE c.name = :coursename")
-	
+	@NamedQuery(name="Course.getCourseByName",query="SELECT c FROM Course c WHERE c.name = :coursename"),
+	@NamedQuery(name="Course.getCoursesAndPrograms", query="SELECT c from Course c JOIN c.program p")
 })
 public class Course {
 	
@@ -35,13 +35,17 @@ public class Course {
 	private String description;
 	private int credit;  
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="program_id")
 	private Program program; 
 	
 	@OneToMany
 	@JoinColumn(name="course_id")
 	private List<Sezzion> sessions;
+	
+	@Transient
+	private String userDayOfWeek;
+	
 	
 	public boolean equals(Object other) {
 	    return (other instanceof Course) && (Long.valueOf(course_id) != null) 
@@ -102,6 +106,19 @@ public class Course {
 	public void setSessions(List<Sezzion> sessions) {
 		this.sessions = sessions;
 	}
+
+
+	public String getUserDayOfWeek() {
+		return userDayOfWeek;
+	}
+
+
+	public void setUserDayOfWeek(String userDayOfWeek) {
+		this.userDayOfWeek = userDayOfWeek;
+	}
 	
-	
+	@Override
+	public String toString() {
+		return String.valueOf(this.course_id) + "|" + this.program.getName() + "|" + this.name + "|" + this.description;	
+	}
 }

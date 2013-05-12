@@ -16,6 +16,7 @@ import com.seis635.project.model.Department;
 import com.seis635.project.model.Grade;
 import com.seis635.project.model.Professor;
 import com.seis635.project.model.Program;
+import com.seis635.project.model.Registration;
 import com.seis635.project.model.Sezzion;
 import com.seis635.project.model.Student;
 import com.seis635.project.model.University;
@@ -42,6 +43,12 @@ public class UniversityEJB {
     	em.persist(university);
     	return "success";
     	
+    }
+    
+    public Professor getProfessorForSession(Sezzion s) {
+    	
+    	
+    	return null;
     }
     
     //TODO -Error handling
@@ -85,12 +92,35 @@ public class UniversityEJB {
     	return (List<Course>)em.createNamedQuery("Course.findAll").getResultList();
     }
     
+    public List<Student> listAllStudents() {
+    	return (List<Student>)em.createNamedQuery("Student.findAll").getResultList();
+    }
+    
+    public List<String> listAllSessionSemesters() {
+    	return (List<String>)em.createNamedQuery("Sezzion.getUniqueSemesters").getResultList();
+    }
+    
+    public List<Course> listAllCoursesAndPrograms() {
+    	return (List<Course>)em.createNamedQuery("Course.getCoursesAndPrograms").getResultList();
+    }
+    
     public List<Professor> listAllProfessors() {
     	return (List<Professor>)em.createNamedQuery("Professor.findAll").getResultList();
     }
     
-    public List<Sezzion> getSessionsForCourse(Course c) {
-    	return new ArrayList<Sezzion>();
+    public List<Sezzion> getSessionsForCourseBySemester(Course c, String semesteryear) {
+     	return (List<Sezzion>)em.createNamedQuery("Sezzion.getSessionsForCourseBySemester").setParameter("coursename", c.getName()).setParameter("semesteryear", semesteryear).getResultList();
+    }
+    
+    public List<Registration> getRegistrationsForSemester(String semester) {
+    	System.out.println("WHAT THE HELL?" + semester);
+    	return (List<Registration>)em.createNamedQuery("Registration.getRegistrationsBySemester").setParameter("semesteryear", semester).getResultList();
+    }
+    
+    public String registerForClass(Registration r) {
+    	System.out.println(r.toString());
+    	em.persist(r);
+    	return "success";
     }
     
     
@@ -156,13 +186,34 @@ public class UniversityEJB {
     	}
     	
     	if(p != null) {
-    		s.setProfessor(p);
+    		if(s.getProfessors() != null) {    		
+	    		
+    			if(p.getSessions() != null) {
+    				tmp = p.getSessions();
+    				tmp.add(s);
+    				p.setSessions(tmp);
+    			} else {
+    				tmp = new ArrayList();
+    				tmp.add(s);
+    				p.setSessions(tmp);
+    			}
+    			
+    			tmp = s.getProfessors();
+	    		tmp.add(p);
+	    		s.setProfessors(tmp);
+	    		
+    		} else {
+    			tmp = new ArrayList();
+    			tmp.add(p);
+    			s.setProfessors(tmp);
+    		}
     	}
     	
     	
     	tmp = course.getSessions();
     	tmp.add(s);
     	
+    	em.persist(p);
     	em.persist(s);
     	
     	em.persist(course);

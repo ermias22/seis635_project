@@ -4,31 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
+import com.seis635.project.dao.UniversityEJB;
 import com.seis635.project.model.Course;
+import com.seis635.project.model.Registration;
 
 @ManagedBean
 @SessionScoped
 public class AppSessionBean {
 	
-	private List courseToRegister;
+	@EJB
+	private UniversityEJB uEJB;
 	
 	@PostConstruct
 	public void init() {
-		courseToRegister = new ArrayList(); 
-	}
 	
-	public void addCourseToRegister(Course c) {
-		courseToRegister.add(c);
 	}
 
-	public List getCourseToRegister() {
-		return courseToRegister;
-	}
 
-	public void setCourseToRegister(List courseToRegister) {
-		this.courseToRegister = courseToRegister;
-	}
+	
+	
 }

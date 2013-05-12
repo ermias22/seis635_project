@@ -16,7 +16,7 @@ public class AdminMenuBean {
 	    public void save() {  
 	        addMessage("Data saved");  
 	    }  
-	      
+	    
 	    public void update() {  
 	        addMessage("Data updated");  
 	    }  

@@ -1,18 +1,28 @@
 package com.seis635.project.model;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="Sezzion.getSessionsForCourseBySemester", query="SELECT s from Sezzion s WHERE s.course.name = :coursename and s.semesteryear = :semesteryear"),
+	@NamedQuery(name="Sezzion.getUniqueSemesters", query="SELECT distinct s.semesteryear from Sezzion s"),
+	@NamedQuery(name="Sezzion.getSessionById", query="SELECT s from Sezzion s WHERE s.sezzion_id = :sezzionId"),
+	@NamedQuery(name="Sezzion.getSezzionsForSemester", query="SELECT s from Sezzion s where s.semesteryear = :semesteryear")
+})
+ 
 public class Sezzion {
 	public Sezzion() {}
 	
@@ -25,17 +35,26 @@ public class Sezzion {
 	
 	@Column(length=4, nullable=true)
 	private int start_time;
+	@Column(length=4, nullable=true)
 	private int end_time; 
+	@Column(length=4, nullable=true)
 	private int numofseats;
 	
 	@Column(length=2)
 	private String dayofweek; 
+	
+	@Column(length=25)
+	private String location;
 
 	@ManyToOne
-	@JoinColumn(name="professor_id")
-	private Professor professor;
+	@JoinColumn(name="course_id")
+	private Course course;
 	
-	
+	@ManyToMany
+	@JoinTable(name="teaches",
+			joinColumns={@JoinColumn(name="sezzion_id", nullable=false)},
+			inverseJoinColumns={@JoinColumn(name="professor_id", nullable=false)})
+	private List<Professor> professors;
 	
 	public boolean equals(Object other) {
 	    return (other instanceof Sezzion) && (Long.valueOf(sezzion_id) != null) 
@@ -51,13 +70,16 @@ public class Sezzion {
 	}
 	
 	
-	public long getSession_id() {
+	public String calculateOpenSeats() {
+		return "5";
+	}
+	public long getSezzion_id() {
 		return sezzion_id;
 		
 	}
 
-	public void setSession_id(long session_id) {
-		this.sezzion_id = session_id;
+	public void setSezzion_id(long sezzion_id) {
+		this.sezzion_id = sezzion_id;
 	}
 
 	public String getSemesteryear() {
@@ -100,14 +122,23 @@ public class Sezzion {
 		this.dayofweek = dayofweek;
 	}
 
-
-	public Professor getProfessor() {
-		return professor;
+	public String getLocation() {
+		return location;
 	}
 
 
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+
+	public List<Professor> getProfessors() {
+		return professors;
+	}
+
+
+	public void setProfessors(List<Professor> professors) {
+		this.professors = professors;
 	}
 	
 	
