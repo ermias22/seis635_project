@@ -48,7 +48,7 @@ public class ApplicationBean {
 		p1.setName("GPS");
 		p1.setDescription("Software Engineering Program");
 		p1.setRequired_credits(100);
-		
+		 
 		Program p2 = new Program();
 		p2.setName("GPM");
 		p2.setDescription("Software Engineering Management");
