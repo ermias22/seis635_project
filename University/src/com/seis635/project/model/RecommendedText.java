@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="RecommendedText.getTextsBySemesterForStudent", query="SELECT t from RecommendedText t INNER JOIN Registration r ON t.course_id = r.clazz. WHERE t.sezzion.semesteryear = :semesteryear and t.professor.ssn = :ssn and r.student_id = :student_id ")
+	@NamedQuery(name="RecommendedText.getTextsBySemesterForStudent", query="SELECT t from RecommendedText t , Registration r WHERE t.course.course_id = r.course.course_id and r.sezzion.semesteryear = :semesteryear and t.professor.ssn = :ssn and r.student.student_id = :student_id ")
 })
 public class RecommendedText {
 	public RecommendedText () {}

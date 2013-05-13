@@ -15,6 +15,7 @@ import com.seis635.project.model.Department;
 import com.seis635.project.model.Professor;
 import com.seis635.project.model.Program;
 import com.seis635.project.model.RecommendedText;
+import com.seis635.project.model.Registration;
 import com.seis635.project.model.Sezzion;
 import com.seis635.project.model.Student;
 import com.seis635.project.model.Text;
@@ -262,7 +263,15 @@ public class ApplicationBean {
 		uEJB.createRecommendedText(rec1);
 		uEJB.createRecommendedText(rec2);
 		
+		Registration reg = new Registration();
+		reg.setCourse(c8);
+		reg.setProfessor(pr3);
+		reg.setSezzion(ses3);
+		reg.setStudent(s1);
 		
+		uEJB.registerForClass(reg);
+		
+		uEJB.testQuery();
 		
 		addMessage("Default Data Added Successfully");
 	}

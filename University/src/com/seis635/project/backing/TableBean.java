@@ -358,7 +358,7 @@ public class TableBean extends AbstractBean implements Serializable {
 	}
 
 	public void setStep(int step) {
-		addMessage(String.valueOf(step));
+		//addMessage(String.valueOf(step));
 		this.step = step;
 	}
 

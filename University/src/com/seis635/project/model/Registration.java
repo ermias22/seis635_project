@@ -16,9 +16,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Grade.getGradesForStudent",query="SELECT g FROM Grade g WHERE g.grade_id.student_id = :id"),
 	@NamedQuery(name="Registration.getRegistrationsBySemester",query="SELECT r from Registration r where r.sezzion.semesteryear = :semesteryear"),
-	@NamedQuery(name="Registration.getRegistration", query="SELECT r from Registration r where r.student.student_id = :student_id and r.professor.professor_id = :professor_id and r.sezzion.sezzion_id = :sezzion_id and r.clazz.course_id = :course_id")
+	@NamedQuery(name="Registration.getRegistration", query="SELECT r from Registration r where r.student.student_id = :student_id and r.professor.professor_id = :professor_id and r.sezzion.sezzion_id = :sezzion_id and r.course.course_id = :course_id")
 })
 public class Registration {
 	

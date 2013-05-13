@@ -12,7 +12,7 @@
 			<p:growl id="messages" autoUpdate="true"/>  
 			<p:fieldset legend="Courses To Register">  
 			<p:dataTable id="registration" value="#{tableBean.registrations}" var="reg" selectionMode="single" selection="#{tableBean.selectedRegistration}" 
-			dblClickSelect="TRUE" rowKey="#{reg.clazz.course_id}">
+			dblClickSelect="TRUE" rowKey="#{reg.course.course_id}">
 			
 					<p:ajax event="rowSelect" dblClickSelect="true" listener="#{tableBean.removeRegistration}" update=":mainContentForm:registration" />
 					<p:column headerText="Semester">
@@ -21,7 +21,7 @@
 			
 			
 					<p:column headerText="Class">
-						<h:outputText value="#{reg.clazz.name}"/>
+						<h:outputText value="#{reg.course.name}"/>
 					</p:column>
 							
 					<p:column headerText="Day of Week">

@@ -7,7 +7,7 @@
 		<class>com.seis635.project.model.Department</class>
 		<class>com.seis635.project.model.Program</class>
 		<class>com.seis635.project.model.Student</class>
-		<class>com.seis635.project.model.Grade</class>
+		<class>com.seis635.project.model.Grade</class> 
 		<class>com.seis635.project.model.Course</class>
 		<class>com.seis635.project.model.Professor</class>
 		<class>com.seis635.project.model.Text</class>
@@ -25,5 +25,5 @@
             <property name="eclipselink.logging.level" value="FINEST"/>
      	</properties>
 		</persistence-unit>
-</persistence>
+</persistence> 
 

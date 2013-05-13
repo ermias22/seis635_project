@@ -174,6 +174,20 @@ public class UniversityEJB {
     	return "success";
     }
     
+    public String testQuery() {
+    	List<Object> tmp = em.createNamedQuery("RecommendedText.getTextsBySemesterForStudent").setParameter("semesteryear", "FALL2013").setParameter("student_id", 17).setParameter("ssn", "12345678").getResultList();
+    	for(Object x: tmp) {
+    		if(x instanceof RecommendedText) {
+    			System.out.println(((RecommendedText)x).getText().getTitle());
+    		}
+    		if(x instanceof Registration) {
+    			System.out.println("Registration");
+    		}
+    		
+    	}
+    	return "success";
+    }
+    
     public String createSession(String courseName, Sezzion s, String profSSN) {
     	List tmp = em.createNamedQuery("Course.getCourseByName").setParameter("coursename", courseName).getResultList();
     	Professor p = null;
