@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Registration.getRegistrationsBySemester",query="SELECT r from Registration r where r.sezzion.semesteryear = :semesteryear"),
+	@NamedQuery(name="Registration.getRegistrationsBySemesterForStudent",query="SELECT r from Registration r where r.sezzion.semesteryear = :semesteryear and r.student.student_id = :student_id"),
 	@NamedQuery(name="Registration.getRegistration", query="SELECT r from Registration r where r.student.student_id = :student_id and r.professor.professor_id = :professor_id and r.sezzion.sezzion_id = :sezzion_id and r.course.course_id = :course_id")
 })
 public class Registration {

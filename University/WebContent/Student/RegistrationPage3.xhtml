@@ -11,10 +11,10 @@
 			
 			<p:growl id="messages" autoUpdate="true"/>  
 			<p:fieldset legend="Courses To Register">  
-			<p:dataTable id="registration" value="#{tableBean.registrations}" var="reg" selectionMode="single" selection="#{tableBean.selectedRegistration}" 
+			<p:dataTable id="registration" value="#{registrationBean.registrations}" var="reg" selectionMode="single" selection="#{registrationBean.selectedRegistration}" 
 			dblClickSelect="TRUE" rowKey="#{reg.course.course_id}">
 			
-					<p:ajax event="rowSelect" dblClickSelect="true" listener="#{tableBean.removeRegistration}" update=":mainContentForm:registration" />
+					<p:ajax event="rowSelect" dblClickSelect="true" listener="#{registrationBean.removeRegistration}" update=":mainContentForm:registration" />
 					<p:column headerText="Semester">
 						<h:outputText value="#{reg.sezzion.semesteryear}"/>
 					</p:column>
@@ -33,8 +33,9 @@
 					</p:column>
 				</p:dataTable>
 		</p:fieldset>
-		
-		<p:commandButton value="Next>>" ajax="true" action="#{tableBean.doRegistration}"  update=":mainContentForm:mainContentPanel"></p:commandButton>
+		<br></br>
+		<br></br>
+		<p:commandButton value="Register" ajax="true" action="#{registrationBean.doRegistration}"  update=":mainContentForm:mainContentPanel"></p:commandButton>
 		
 </ui:composition>
 </html>

@@ -117,9 +117,8 @@ public class UniversityEJB {
      	return (List<Sezzion>)em.createNamedQuery("Sezzion.getSessionsForCourseBySemester").setParameter("coursename", c.getName()).setParameter("semesteryear", semesteryear).getResultList();
     }
     
-    public List<Registration> getRegistrationsForSemester(String semester) {
-    	System.out.println("WHAT THE HELL?" + semester);
-    	return (List<Registration>)em.createNamedQuery("Registration.getRegistrationsBySemester").setParameter("semesteryear", semester).getResultList();
+    public List<Registration> getRegistrationsForSemesterForStudent(String semester, long student_id) {
+    	return (List<Registration>)em.createNamedQuery("Registration.getRegistrationsBySemesterForStudent").setParameter("semesteryear", semester).setParameter("student_id", student_id).getResultList();
     }
     
     public String registerForClass(Registration r) {

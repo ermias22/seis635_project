@@ -25,7 +25,7 @@ import com.seis635.project.model.Student;
 
 @ViewScoped
 @ManagedBean
-public class TableBean extends AbstractBean implements Serializable {
+public class RegistrationBean extends AbstractBean implements Serializable {
 	
 	@EJB
 	private UniversityEJB uEJB;
@@ -69,7 +69,7 @@ public class TableBean extends AbstractBean implements Serializable {
 	
 	
 	private String student_ssn;
-	
+	private long student_id;
 	private String dayofweek;
 	
 	private List<Registration> registeredFor;
@@ -140,6 +140,9 @@ public class TableBean extends AbstractBean implements Serializable {
 					
 			addMessage("Successfully Reigistered For: " +r.toString());
 			uEJB.registerForClass(r);
+			
+			step = 1;
+			
 		}
 	}
 	
@@ -178,7 +181,7 @@ public class TableBean extends AbstractBean implements Serializable {
 		
 		//regCourses.add(((Course) event.getObject()));
 		
-		FacesMessage msg = new FacesMessage("Course selected: " + tmp.getName() + ":" + tmp.getCourse_id() + ":" + courses.contains(tmp));
+		//addMessage("Course selected: " + tmp.getName() + ":" + tmp.getCourse_id() + ":" + courses.contains(tmp));
 		
 		courses.remove(course);
 		if(!filteredCourses.isEmpty()) {
@@ -188,12 +191,11 @@ public class TableBean extends AbstractBean implements Serializable {
 		regCourses.add(course);
 		addCourseToRegister(course);
 		
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-		
+				
 	}
 	
 	public void populateRegisteredClasses() {
-		registeredFor = uEJB.getRegistrationsForSemester(this.getSemester());
+		registeredFor = uEJB.getRegistrationsForSemesterForStudent(getSemester(), student_id);
 	}
 		
 	public UniversityEJB getuEJB() {
@@ -366,9 +368,6 @@ public class TableBean extends AbstractBean implements Serializable {
 		return courseToRegister;
 	}
 
-	public void setCourseToRegister(List courseToRegister) {
-		this.courseToRegister = courseToRegister;
-	}
 
 	public List<Registration> getRegistrations() {
 		return registrations;
@@ -408,6 +407,18 @@ public class TableBean extends AbstractBean implements Serializable {
 
 	public void setRegisteredFor(List<Registration> registeredFor) {
 		this.registeredFor = registeredFor;
+	}
+
+	public long getStudent_id() {
+		return student_id;
+	}
+
+	public void setStudent_id(long student_id) {
+		this.student_id = student_id;
+	}
+
+	public void setCourseToRegister(List<Course> courseToRegister) {
+		this.courseToRegister = courseToRegister;
 	}
 
 

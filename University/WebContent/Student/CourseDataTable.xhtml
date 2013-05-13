@@ -12,17 +12,17 @@
 	<p:growl id="messages" autoUpdate="true"/>  
 				
 		<p:fieldset legend="Course Catalog">  
-		<p:dataTable id="courseCatalog" value="#{tableBean.courses}" var="course" filteredValue="#{tableBean.filteredCourses}"
+		<p:dataTable id="courseCatalog" value="#{registrationBean.courses}" var="course" filteredValue="#{registrationBean.filteredCourses}"
 			rowKey="#{course.course_id}">
 		 	 		
-			<p:column headerText="Program" filterBy="#{course.program.name}">
+			<p:column headerText="Program" filterBy="#{course.program.name}" filterMatchMode="contains">
 				<h:outputText value="#{course.program.name}"/>
 			</p:column>
 			
 			<p:column headerText="Name" filterBy="#{course.name}" filterMatchMode="contains">
 				<h:outputText value="#{course.name}"/>
 			</p:column>
-			<p:column headerText="Description" filterBy="#{course.description}">
+			<p:column headerText="Description" filterBy="#{course.description}" filterMatchMode="contains">
 				<h:outputText value="#{course.description}"/>
 			</p:column>
 			<p:column headerText="Credit" filterBy="#{course.credit}">

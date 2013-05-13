@@ -8,14 +8,11 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-<h:panelGroup rendered="#{tableBean.step == 1}">
-   <ui:include src="/Student/registerPage1.xhtml" />
+<h:panelGroup rendered="#{registrationBean.step == 1}">
+   <ui:include src="/Student/TextbooksPage1.xhtml" />
 </h:panelGroup>
-<h:panelGroup rendered="#{tableBean.step == 2}">
-   <ui:include src="/Student/courseDataTable.xhtml" />
-</h:panelGroup>
-<h:panelGroup rendered="#{tableBean.step == 3}">
-   <ui:include src="/Student/confirmReg.xhtml" />
+<h:panelGroup rendered="#{registrationBean.step == 2}">
+   <ui:include src="/Student/TextbooksPage2.xhtml" />
 </h:panelGroup>
 </ui:composition>
 </html>

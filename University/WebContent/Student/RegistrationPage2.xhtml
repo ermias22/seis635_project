@@ -12,22 +12,22 @@
 	<p:growl id="messages" autoUpdate="true"/>  
 				
 		<p:fieldset legend="Course Catalog">  
-		<p:dataTable id="courseCatalog" value="#{tableBean.courses}" var="course" filteredValue="#{tableBean.filteredCourses}"
-			selectionMode="single" selection="#{tableBean.selectedCourse}" dblClickSelect="TRUE" rowKey="#{course.course_id}">
+		<p:dataTable id="courseCatalog" value="#{registrationBean.courses}" var="course" filteredValue="#{registrationBean.filteredCourses}"
+			selectionMode="single" selection="#{registrationBean.selectedCourse}" dblClickSelect="TRUE" rowKey="#{course.course_id}">
 		 
-		 	<p:ajax event="rowSelect" dblClickSelect="true" listener="#{tableBean.addCourseToRegister}" update=":mainContentForm:form:courseCatalog :mainContentForm:form:reg" />
+		 	<p:ajax event="rowSelect" dblClickSelect="true" listener="#{registrationBean.addCourseToRegister}" update=":mainContentForm:form:courseCatalog :mainContentForm:form:reg" />
 			
-			<p:column headerText="Program" filterBy="#{course.program.name}">
+			<p:column headerText="Program" filterBy="#{course.program.name}" filterMatchMode="contains">
 				<h:outputText value="#{course.program.name}"/>
 			</p:column>
 			
 			<p:column headerText="Name" filterBy="#{course.name}" filterMatchMode="contains">
 				<h:outputText value="#{course.name}"/>
 			</p:column>
-			<p:column headerText="Description" filterBy="#{course.description}">
+			<p:column headerText="Description" filterBy="#{course.description}" filterMatchMode="contains">
 				<h:outputText value="#{course.description}"/>
 			</p:column>
-			<p:column headerText="Credit" filterBy="#{course.credit}">
+			<p:column headerText="Credit" filterBy="#{course.credit}" filterMatchMode="contains">
 				<h:outputText value="#{course.credit}"/>
 			</p:column>
 
@@ -35,7 +35,7 @@
 		</p:fieldset>
 		<br></br>
 		<p:fieldset legend="Courses To Register">  
-			<p:dataTable id="reg" widgetVar="reg" var="regCourse" value="#{tableBean.regCourses}" editMode="row" rowKey="regCourse.course_id" >
+			<p:dataTable id="reg" widgetVar="reg" var="regCourse" value="#{registrationBean.regCourses}" editMode="row" rowKey="regCourse.course_id" >
 					<p:column headerText="Program">
 						<h:outputText value="#{regCourse.program.name}"/>
 					</p:column>
@@ -50,8 +50,8 @@
 						<h:outputText value="#{regCourse.credit}"/>
 					</p:column>
 					<p:column headerText="Choose Session">
-						<p:commandButton id="selectButton" value="Choose Session" process="@this :mainContentForm:form:courseSessions" update=":mainContentForm:form:courseSessions" action="#{tableBean.chooseSession}" oncomplete="sessionDialog.show()" icon="ui-icon-search" title="Choose Session">
-							<f:setPropertyActionListener value="#{regCourse}" target="#{tableBean.sessionForCourse}"/>
+						<p:commandButton id="selectButton" value="Choose Session" process="@this :mainContentForm:form:courseSessions" update=":mainContentForm:form:courseSessions" action="#{registrationBean.chooseSession}" oncomplete="sessionDialog.show()" icon="ui-icon-search" title="Choose Session">
+							<f:setPropertyActionListener value="#{regCourse}" target="#{registrationBean.sessionForCourse}"/>
 						</p:commandButton>
 					</p:column>
 					<p:column headerText="Selected">
@@ -63,10 +63,10 @@
 		
 		<p:dialog header="Session Details" widgetVar="sessionDialog" appendToBody="false" resizable="true" id="sessionDlg" showEffect="fade" hideEffect="explode" dynamic="true" closable="true">
 
-				<p:dataTable id="courseSessions" var="ses" value="#{tableBean.courseSessions}"
-					selectionMode="single" selection="#{tableBean.selectedSession}" dblClickSelect="TRUE" rowKey="#{ses.sezzion_id}">
+				<p:dataTable id="courseSessions" var="ses" value="#{registrationBean.courseSessions}"
+					selectionMode="single" selection="#{registrationBean.selectedSession}" dblClickSelect="TRUE" rowKey="#{ses.sezzion_id}">
 					
-					<p:ajax event="rowSelect" listener="#{tableBean.selectSession}" update=":mainContentForm:form:reg" onsuccess="sessionDialog.hide()" />
+					<p:ajax event="rowSelect" listener="#{registrationBean.selectSession}" update=":mainContentForm:form:reg" onsuccess="sessionDialog.hide()" />
 					
 					<p:column headerText="Semester">
 						<h:outputText value="#{ses.semesteryear}"/>
@@ -93,7 +93,7 @@
 		
 		</h:form>
 		
-		<p:commandButton value="Next>>" ajax="true" action="#{tableBean.setStep('3')}" update=":mainContentForm:mainContentPanel"></p:commandButton>
+		<p:commandButton value="Next>>" ajax="true" action="#{registrationBean.setStep('3')}" update=":mainContentForm:mainContentPanel"></p:commandButton>
 </ui:composition>
 </html>
 

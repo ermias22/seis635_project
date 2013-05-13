@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h1>View/Edit Course Schedule </h1>
+	
+	<h:panelGrid columns="2">	
+		<p:selectOneMenu value="#{registrationBean.student_id}" var="student">
+	    	<f:selectItems value="#{registrationBean.students}" var="stud" itemLabel="#{stud.first_name} #{stud.last_name}" itemValue="#{stud.student_id}" />
+	     		<p:column>
+	     	   		#{stud.first_name} #{stud.last_name}
+	     	   	</p:column>
+	 	</p:selectOneMenu>
+	     	
+	    <p:selectOneMenu value="#{registrationBean.semester}" var="semester" >
+	    	<f:selectItems value="#{registrationBean.semesters}" var="sem" itemLabel="#{sem}" itemValue="#{sem}" />
+	     		<p:column>
+		     	   	#{sem}
+	     	   </p:column>
+		</p:selectOneMenu>
+	</h:panelGrid>
+	<br></br>
+	<p:commandButton  value="Next >>" ajax="true" action="#{registrationBean.populateRegisteredClasses}" actionListener="#{registrationBean.setStep('2')}" update=":mainContentForm:mainContentPanel" />     
+	
+</ui:composition>
+</html>
