@@ -9,8 +9,9 @@
 
 <ui:composition>
 	
-	<p:fieldset legend="Courses To Register">  
-		<p:dataTable id="registration" value="#{tableBean.registeredFor}" var="reg" rowKey="#{reg.clazz.course_id}">
+	<p:fieldset legend="Class Schedule">  
+		<p:dataTable id="registration" value="#{tableBean.registeredFor}" var="reg" rowKey="#{reg.clazz.course_id}"
+		selectionMode="single" selection="#{tableBean.selectedRegistration}">
 						
 			<p:column headerText="Semester">
 				<h:outputText value="#{reg.sezzion.semesteryear}"/>
@@ -34,6 +35,13 @@
 			</p:column>
 		</p:dataTable>
 	</p:fieldset>
+	<br></br>
+	<br></br>
+	<p:commandButton value="Drop Selected Class" action="#{tableBean.doDropRegistration}" update=":mainContentForm:registration" >
+	
+	</p:commandButton>
+	
+
 	
 </ui:composition>
 </html>

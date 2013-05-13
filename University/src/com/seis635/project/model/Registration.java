@@ -17,7 +17,8 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Grade.getGradesForStudent",query="SELECT g FROM Grade g WHERE g.grade_id.student_id = :id"),
-	@NamedQuery(name="Registration.getRegistrationsBySemester",query="SELECT r from Registration r where r.sezzion.semesteryear = :semesteryear")
+	@NamedQuery(name="Registration.getRegistrationsBySemester",query="SELECT r from Registration r where r.sezzion.semesteryear = :semesteryear"),
+	@NamedQuery(name="Registration.getRegistration", query="SELECT r from Registration r where r.student.student_id = :student_id and r.professor.professor_id = :professor_id and r.sezzion.sezzion_id = :sezzion_id and r.clazz.course_id = :course_id")
 })
 public class Registration {
 	
@@ -31,14 +32,14 @@ public class Registration {
 			private Long student_id;
 			private Long sezzion_id;
 			private Long professor_id;
-			private Long class_id;
+			private Long course_id;
 			
 			public RegistrationKey() {}
 			public RegistrationKey(long studentId, long sessionId, long professorId, long classId) {
 				this.student_id = studentId;
 				this.sezzion_id = sessionId;
 				this.professor_id = professorId;
-				this.class_id = classId;
+				this.course_id = classId;
 				
 			}
 			
@@ -69,11 +70,11 @@ public class Registration {
 			public void setProfessor_id(Long professor_id) {
 				this.professor_id = professor_id;
 			}
-			public Long getClass_id() {
-				return class_id;
+			public Long getCourse_id() {
+				return course_id;
 			}
-			public void setClass_id(Long class_id) {
-				this.class_id = class_id;
+			public void setCourse_id(Long class_id) {
+				this.course_id = class_id;
 			}
 			
 		}
@@ -100,8 +101,8 @@ public class Registration {
 		
 		@OneToOne
 		@JoinColumn(name="class_id")
-		@MapsId("class_id")
-		private Course clazz ;
+		@MapsId("course_id")
+		private Course course ;
 		
 		@Temporal(TemporalType.DATE)
 		private Date enrollment_date;
@@ -130,12 +131,12 @@ public class Registration {
 			this.professor = professor;
 		}
 
-		public Course getClazz() {
-			return clazz;
+		public Course getCourse() {
+			return course;
 		}
 
-		public void setClazz(Course clazz) {
-			this.clazz = clazz;
+		public void setCourse(Course course) {
+			this.course = course;
 		}
 
 		public Date getEnrollment_date() {
@@ -156,6 +157,6 @@ public class Registration {
 
 		@Override
 		public String toString() {
-			return String.valueOf(this.clazz.getCourse_id()) + "|" + this.clazz.getName() + "|" + this.clazz.getProgram().getName() + "|" + this.sezzion.getDayofweek() + "|" + this.professor.getLast_name();
+			return String.valueOf(this.course.getCourse_id()) + "|" + this.course.getName() + "|" + this.course.getProgram().getName() + "|" + this.sezzion.getDayofweek() + "|" + this.professor.getLast_name();
 		}
 }

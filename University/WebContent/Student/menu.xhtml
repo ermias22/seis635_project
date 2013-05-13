@@ -15,8 +15,9 @@
         
         	<p:submenu label="Registration">        	
 	            <p:menuitem value="View Courses" action="#{studentMenuBean.setPage('/Student/viewCourseDataTable.xhtml')}" update=":mainContentForm:mainContentPanel" />
-	            <p:menuitem value="Add/Drop Classes" action="#{studentMenuBean.setPage('/Student/registration.xhtml')}" actionListener="#{tableBean.setStep('1')}" update=":mainContentForm:mainContentPanel" />
-	            <p:menuitem value="View/Print Schedule" action="#{studentMenuBean.setPage('/Student/viewClassSchedule.xhtml')}" actionListener="#{tableBean.setStep('1')}" update=":mainContentForm:mainContentPanel" />
+	            <p:menuitem value="Register for Classes" action="#{studentMenuBean.setPage('/Student/registration.xhtml')}" actionListener="#{tableBean.setStep('1')}" update=":mainContentForm:mainContentPanel" />
+	            <p:menuitem value="View/Drop Classes" action="#{studentMenuBean.setPage('/Student/viewClassSchedule.xhtml')}" actionListener="#{tableBean.setStep('1')}" update=":mainContentForm:mainContentPanel" />
+	            <p:menuitem value="View Textbooks" action="#{studentMenuBean.setPage('/Student/showTextbooks.xhtml')" update=":mainContentForm:mainContentPanel"/>
 	        </p:submenu>
             <p:submenu label="Gradebook">        	
 	            <p:menuitem value="View Grades" action="#{studentMenuBean.setPage('/Student/delUniv.xhtml')}" update=":mainContentForm:mainContentPanel" />

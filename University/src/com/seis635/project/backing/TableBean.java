@@ -101,16 +101,23 @@ public class TableBean extends AbstractBean implements Serializable {
 	}
 	
 	public void chooseSession() {
-		addMessage(sessionForCourse.getName());
+		//addMessage(sessionForCourse.getName());
 		System.out.println("I am here");
 		System.out.println(this.getSemester());
 		courseSessions = uEJB.getSessionsForCourseBySemester(sessionForCourse, this.getSemester());
 		
 	}
 	
+	public void doDropRegistration() {
+		registeredFor.remove(selectedRegistration);
+		String result = uEJB.dropRegistration(selectedRegistration);
+		if(result.equalsIgnoreCase("success")) {
+			addMessage("Successfully Dropped Class: " + selectedRegistration.getCourse().getName());
+		}
+	}
 	
 	public void removeRegistration(SelectEvent event) {
-		addMessage(((Registration)event.getObject()).getSezzion().getDayofweek());
+		//addMessage(((Registration)event.getObject()).getSezzion().getDayofweek());
 		
 		registrations.remove( (Registration)event.getObject());
 	}
@@ -121,7 +128,7 @@ public class TableBean extends AbstractBean implements Serializable {
 	}
 	
 	public void addCourseToRegister(Course c) {
-		addMessage(c.getName());
+		//addMessage(c.getName());
 		courseToRegister.add(c);
 	}
 	
@@ -131,7 +138,7 @@ public class TableBean extends AbstractBean implements Serializable {
 			System.out.println(registrations.size());
 			System.out.println(r.toString());
 					
-			addMessage(r.toString());
+			addMessage("Successfully Reigistered For: " +r.toString());
 			uEJB.registerForClass(r);
 		}
 	}
@@ -141,7 +148,7 @@ public class TableBean extends AbstractBean implements Serializable {
 		Sezzion tmpSezzion = (Sezzion)event.getObject();
 			
 		reg = new Registration();
-		reg.setClazz(sessionForCourse);
+		reg.setCourse(sessionForCourse);
 		reg.setSezzion(tmpSezzion);
 		reg.setProfessor(tmpSezzion.getProfessors().get(0));
 		

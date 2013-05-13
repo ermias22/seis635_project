@@ -23,8 +23,10 @@
         <h:selectOneListbox value="#{deptBean.univName}" var="univName" >
      	   <f:selectItems value="#{deptBean.universities}" var="university" itemLabel="#{university.name}" itemValue="#{university.name}" />
      	</h:selectOneListbox>
+     	
     	<br></br>
-    	<h:commandButton value="Create a Department" actionListener="#{adminMenuBean.setPage('/Admin/addDept.xhtml')}" action="#{deptBean.doCreateDepartment}" update="messages"/>           
+    	<h:commandButton value="Create a Department" actionListener="#{adminMenuBean.setPage('/Admin/addDept.xhtml')}" 
+    		action="#{deptBean.doCreateDepartment}" update="messages"/>           
   	</h:panelGrid>
      		            
     <p:growl id="messages" autoUpdate="true"/>        

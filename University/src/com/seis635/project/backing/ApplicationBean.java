@@ -14,8 +14,10 @@ import com.seis635.project.model.Course;
 import com.seis635.project.model.Department;
 import com.seis635.project.model.Professor;
 import com.seis635.project.model.Program;
+import com.seis635.project.model.RecommendedText;
 import com.seis635.project.model.Sezzion;
 import com.seis635.project.model.Student;
+import com.seis635.project.model.Text;
 import com.seis635.project.model.University;
 
 @ManagedBean(eager=true)
@@ -224,6 +226,41 @@ public class ApplicationBean {
 		uEJB.createSession(c8.getName(), ses1, pr3.getSsn());
 		uEJB.createSession(c8.getName(), ses2, pr2.getSsn());
 		uEJB.createSession(c1.getName(), ses3, pr1.getSsn());
+		
+		
+		Text t1 = new Text();
+		t1.setIsbn("9781848009066");
+		t1.setDescription("Software Engineering");
+		t1.setTitle("Human-Centered Software Engineering");
+		
+		Text t2 = new Text();
+		t2.setIsbn("1111969604");
+		t2.setDescription("Database Systems");
+		t2.setTitle("Database Systems Design Implementation Management");
+		
+		Text t3 = new Text();
+		t3.setIsbn("9780073294414");
+		t3.setDescription("Sotware Analysis");
+		t3.setTitle("Simulation Modeling and Analysis with Expertfit Software: 4th Edition");
+		
+		uEJB.createText(t1);
+		uEJB.createText(t2);
+		uEJB.createText(t3);
+		
+		RecommendedText rec1 = new RecommendedText() ;
+		rec1.setRequired(true);
+		rec1.setCourse(c8);
+		rec1.setProfessor(pr3);
+		rec1.setText(t1);
+		
+		RecommendedText rec2 = new RecommendedText();
+		rec2.setRequired(true);
+		rec2.setCourse(c8);
+		rec2.setProfessor(pr3);
+		rec2.setText(t3);
+		
+		uEJB.createRecommendedText(rec1);
+		uEJB.createRecommendedText(rec2);
 		
 		
 		

@@ -30,7 +30,6 @@ public class Department implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long department_id;
 	@Column(unique=true,length=25)
