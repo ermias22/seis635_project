@@ -10,8 +10,8 @@
 <ui:composition>
 	<h1>Required Textbooks</h1>
 				<h:panelGrid columns="2">	
-			<p:selectOneMenu value="#{textBean.student_ssn}" var="student">
-	     	   <f:selectItems value="#{textBean.students}" var="stud" itemLabel="#{stud.first_name} #{stud.last_name}" itemValue="#{stud.ssn}" />
+			<p:selectOneMenu value="#{textBean.student_id}" var="student">
+	     	   <f:selectItems value="#{textBean.students}" var="stud" itemLabel="#{stud.first_name} #{stud.last_name}" itemValue="#{stud.student_id}" />
 	     	   <p:column>
 	     	   		#{stud.first_name} #{stud.last_name}
 	     	   </p:column>
@@ -24,7 +24,7 @@
 	     	   </p:column>
 	     	</p:selectOneMenu>
 	     	
-	     	<p:commandButton  value="Next >>" ajax="true" action="#{textBean.populateRegisteredClasses}" actionListener="#{tableBean.setStep('2')}" update=":mainContentForm:mainContentPanel" >
+	     	<p:commandButton  value="Next >>" ajax="true" action="#{textBean.populateRequiredText}" actionListener="#{registrationBean.setStep('2')}" update=":mainContentForm:mainContentPanel" >
 	     
 	     	</p:commandButton>
 	     </h:panelGrid>

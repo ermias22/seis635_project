@@ -271,7 +271,7 @@ public class ApplicationBean {
 		
 		uEJB.registerForClass(reg);
 		
-		uEJB.testQuery();
+		
 		
 		addMessage("Default Data Added Successfully");
 	}

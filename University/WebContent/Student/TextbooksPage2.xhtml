@@ -9,8 +9,8 @@
 
 <ui:composition>
 	
-	<p:fieldset legend="Class Schedule">  
-		<p:dataTable id="textbooks" value="#{tableBean.textbooks}" var="tb" rowKey="#{tb.recommended_id}"/>
+	<p:fieldset legend="TextBooks">  
+		<p:dataTable id="textbooks" value="#{textBean.textbooks}" var="tb" rowKey="#{tb.recommended_id}">
 						
 			<p:column headerText="Course">
 				<h:outputText value="#{tb.course.name}"/>
@@ -26,7 +26,12 @@
 			<p:column headerText="Title">
 				<h:outputText value="#{tb.text.title}"/> 
 			</p:column>
+			<p:column headerText="Required">
+				<h:outputText value="#{tb.required}"/>
+			</p:column>
 		</p:dataTable>
-	</p:fieldset>
+
+</p:fieldset>
+
 </ui:composition>
 </html>

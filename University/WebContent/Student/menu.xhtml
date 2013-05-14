@@ -17,7 +17,7 @@
 	            <p:menuitem value="View Courses" action="#{studentMenuBean.setPage('/Student/CourseDataTable.xhtml')}" update=":mainContentForm:mainContentPanel" />
 	            <p:menuitem value="Register for Classes" action="#{studentMenuBean.setPage('/Student/Registration.xhtml')}" actionListener="#{registrationBean.setStep('1')}" update=":mainContentForm:mainContentPanel" />
 	            <p:menuitem value="View/Drop Classes" action="#{studentMenuBean.setPage('/Student/CourseSchedule.xhtml')}" actionListener="#{registrationBean.setStep('1')}" update=":mainContentForm:mainContentPanel" />
-	            <p:menuitem value="View Textbooks" action="#{studentMenuBean.setPage('/Student/Textbooks.xhtml')}" update=":mainContentForm:mainContentPanel"/>
+	            <p:menuitem value="View Textbooks" action="#{studentMenuBean.setPage('/Student/Textbooks.xhtml')}" actionListener="#{registrationBean.setStep('1')}" update=":mainContentForm:mainContentPanel"/>
 	        </p:submenu>
             <p:submenu label="Gradebook">        	
 	            <p:menuitem value="View Grades"  update=":mainContentForm:mainContentPanel" />

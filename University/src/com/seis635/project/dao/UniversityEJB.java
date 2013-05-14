@@ -47,11 +47,16 @@ public class UniversityEJB {
     	return "Success";		
     	//TODO - add error handling		
     }
-    
+     
     public List<University> listAllUniversity() {
     	return (List<University>)em.createNamedQuery("University.findAll").getResultList();
     }
     
+    
+    public List<RecommendedText> getRecommendedText(String semesteryear, long student_id) {
+    	return (List<RecommendedText>)em.createNamedQuery("RecommendedText.getTextsBySemesterForStudent").setParameter("semesteryear", semesteryear).setParameter("student_id", student_id).getResultList();
+    }
+    		 
     
     //TODO -Error handling
     public String createStudent(Student stu) {
@@ -174,16 +179,8 @@ public class UniversityEJB {
     }
     
     public String testQuery() {
-    	List<Object> tmp = em.createNamedQuery("RecommendedText.getTextsBySemesterForStudent").setParameter("semesteryear", "FALL2013").setParameter("student_id", 17).setParameter("ssn", "12345678").getResultList();
-    	for(Object x: tmp) {
-    		if(x instanceof RecommendedText) {
-    			System.out.println(((RecommendedText)x).getText().getTitle());
-    		}
-    		if(x instanceof Registration) {
-    			System.out.println("Registration");
-    		}
+  	
     		
-    	}
     	return "success";
     }
     
