@@ -48,6 +48,10 @@ public class UniversityEJB {
     	//TODO - add error handling		
     }
      
+    public void updateObject(Object x) {
+    	em.merge(x);
+    }
+    
     public List<University> listAllUniversity() {
     	return (List<University>)em.createNamedQuery("University.findAll").getResultList();
     }
@@ -115,12 +119,12 @@ public class UniversityEJB {
     }
     
     public List<Professor> listAllProfessors() {
-    	return (List<Professor>)em.createNamedQuery("Professor.findAll").getResultList();
+    	return (List<Professor>)em.createNamedQuery("Professor.findAll").getResultList(); 
     }
     
     public List<Sezzion> getSessionsForCourseBySemester(Course c, String semesteryear) {
      	return (List<Sezzion>)em.createNamedQuery("Sezzion.getSessionsForCourseBySemester").setParameter("coursename", c.getName()).setParameter("semesteryear", semesteryear).getResultList();
-    }
+    } 
     
     public List<Registration> getRegistrationsForSemesterForStudent(String semester, long student_id) {
     	return (List<Registration>)em.createNamedQuery("Registration.getRegistrationsBySemesterForStudent").setParameter("semesteryear", semester).setParameter("student_id", student_id).getResultList();
@@ -128,9 +132,34 @@ public class UniversityEJB {
     
     public String registerForClass(Registration r) {
     	System.out.println(r.toString());
-    	em.persist(r);
+    	
+    	Registration.RegistrationKey pk1 = new Registration.RegistrationKey();
+    	pk1.setCourse_id(r.getCourse().getCourse_id());
+    	pk1.setProfessor_id(r.getProfessor().getProfessor_id());
+    	pk1.setSezzion_id(r.getSezzion().getSezzion_id());
+    	pk1.setStudent_id(r.getStudent().getStudent_id());
+    	
+    	Registration tmp = em.find(Registration.class, pk1);
+    	
+    	if(tmp != null) {
+    		addMessage("Already Registered for: " + r.toString());
+    	} else {
+    		
+    		Sezzion sez = em.find(Sezzion.class, r.getSezzion().getSezzion_id());
+    		em.persist(r);
+    		List<Registration> l = sez.getRegistrations();   
+    		if(l == null) {
+    			l = new ArrayList<Registration>();
+    		}
+    		l.add(r);
+    		sez.setRegistrations(l);
+    		em.merge(sez);
+    		
+    		addMessage("Successfully Reigistered For: " +r.toString());
+    	}
+    	
     	return "success";
-    }
+    } 
     
     
     public String createProgram(String deptName, Program p) {
@@ -228,11 +257,16 @@ public class UniversityEJB {
     	tmp = course.getSessions();
     	tmp.add(s);
     	
+    	
+    	
+    	
+    	if(em.contains(s)) {
+    		addMessage("yo");
+    	} else {
     	em.persist(p);
     	em.persist(s);
-    	
     	em.persist(course);
-        
+    	}
     	return "success";
     }
     

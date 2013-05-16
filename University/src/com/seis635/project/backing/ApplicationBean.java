@@ -1,6 +1,7 @@
 package com.seis635.project.backing;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -106,7 +107,7 @@ public class ApplicationBean {
 		Course c5 = new Course();
 		c5.setName("645");
 		c5.setDescription("Computer and Network Communication");
-		c5.setCredit(3);
+		c5.setCredit(3); 
 		c5.setProgram(p1);
 		
 		Course c6 = new Course();
@@ -128,7 +129,7 @@ public class ApplicationBean {
 		c8.setProgram(p1);
 		
 		uEJB.createCourse(p1.getName(), c1);
-		uEJB.createCourse(p1.getName(), c2);
+		uEJB.createCourse(p1.getName(), c2); 
 		uEJB.createCourse(p1.getName(), c3);
 		uEJB.createCourse(p1.getName(), c4);
 		uEJB.createCourse(p1.getName(), c5);
@@ -266,11 +267,12 @@ public class ApplicationBean {
 		Registration reg = new Registration();
 		reg.setCourse(c8);
 		reg.setProfessor(pr3);
-		reg.setSezzion(ses3);
+		reg.setSezzion(ses1);
 		reg.setStudent(s1);
 		
 		uEJB.registerForClass(reg);
 		
+				
 		
 		
 		addMessage("Default Data Added Successfully");

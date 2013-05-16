@@ -99,7 +99,7 @@ public class Registration {
 		private Professor professor;
 		
 		@OneToOne
-		@JoinColumn(name="class_id")
+		@JoinColumn(name="course_id")
 		@MapsId("course_id")
 		private Course course ;
 		

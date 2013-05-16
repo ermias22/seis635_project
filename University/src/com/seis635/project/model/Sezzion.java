@@ -5,15 +5,18 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
@@ -30,14 +33,14 @@ public class Sezzion {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long sezzion_id;
 	
-	@Column(length=12 )
+	@Column(length=12 ) 
 	private String semesteryear;
 	
 	@Column(length=4, nullable=true)
 	private int start_time;
 	@Column(length=4, nullable=true)
 	private int end_time; 
-	@Column(length=4, nullable=true)
+	@Column(length=4, nullable=true) 
 	private int numofseats;
 	
 	@Column(length=2)
@@ -47,7 +50,7 @@ public class Sezzion {
 	private String location;
 
 	@ManyToOne
-	@JoinColumn(name="course_id")
+	@JoinColumn(name="course_id") 
 	private Course course;
 	
 	@ManyToMany
@@ -55,6 +58,9 @@ public class Sezzion {
 			joinColumns={@JoinColumn(name="sezzion_id", nullable=false)},
 			inverseJoinColumns={@JoinColumn(name="professor_id", nullable=false)})
 	private List<Professor> professors;
+	
+	@OneToMany(mappedBy="sezzion", fetch=FetchType.EAGER)
+	private List<Registration>  registrations;
 	
 	public boolean equals(Object other) {
 	    return (other instanceof Sezzion) && (Long.valueOf(sezzion_id) != null) 
@@ -139,6 +145,26 @@ public class Sezzion {
 
 	public void setProfessors(List<Professor> professors) {
 		this.professors = professors;
+	}
+
+
+	public Course getCourse() {
+		return course;
+	}
+
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+
+	public List<Registration> getRegistrations() {
+		return registrations;
+	}
+
+
+	public void setRegistrations(List<Registration> registrations) {
+		this.registrations = registrations;
 	}
 	
 	

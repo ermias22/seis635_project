@@ -3,10 +3,10 @@ package com.seis635.project.backing;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -132,20 +132,37 @@ public class RegistrationBean extends AbstractBean implements Serializable {
 		courseToRegister.add(c);
 	}
 	
-	public void doRegistration() {
+	public String doRegistration() {
 		for (Registration r : registrations) {
 			
 			System.out.println(registrations.size());
 			System.out.println(r.toString());
 					
-			addMessage("Successfully Reigistered For: " +r.toString());
+			
 			uEJB.registerForClass(r);
 			
 			step = 1;
 			
 		}
+		
+		
+		removeViewScopedBean("registrationBean");
+		return "";
+		
+		
 	}
 	
+	public static void removeViewScopedBean(String beanName) 
+    {
+//      Map<String, Object> wtf = FacesContext.getCurrentInstance().getViewRoot().getViewMap();
+//      
+//      for (String s : wtf.keySet()) {
+//    	  System.out.println(s);
+//      }
+      
+		
+		FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove(beanName);
+    }
 	
 	public void selectSession(SelectEvent event) {
 		Sezzion tmpSezzion = (Sezzion)event.getObject();
