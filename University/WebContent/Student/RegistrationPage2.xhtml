@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 <ui:composition>
 	<h:form id="form">
@@ -84,7 +85,7 @@
 						<h:outputText value="#{ses.end_time}"/>
 					</p:column>
 					<p:column headerText="Open Seats">
-						<h:outputText value="Add SQL Query"/>
+						<h:outputText value="#{ses.numofseats-fn:length(ses.registrations)}"/>
 					</p:column>
 								
 				</p:dataTable>
