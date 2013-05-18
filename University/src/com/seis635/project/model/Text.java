@@ -15,10 +15,10 @@ public class Text {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long text_id;
 	
-	@Column(length=25)
+	@Column(length=25) 
 	private String isbn; 
 	
-	@Column(length=225)
+	@Column(length=220)
 	private String title;
 	private String description;
 	public long getText_id() {
